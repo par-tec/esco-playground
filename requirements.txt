@@ -1,0 +1,4 @@
+spacy
+spacy[cuda113]
+sentence_transformers
+jupyter

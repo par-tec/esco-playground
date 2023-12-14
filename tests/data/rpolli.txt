@@ -1,0 +1,236 @@
+R O B E R T O P O L L I
+
+personal information
+
+Born in Italy, 5 December 1977
+
+robipolli@gmail.com
+
+https://www.linkedin.com/in/rpolli
+
+https://github.com/ioggstream
++39 340 65 22 736
+
+email
+
+linkedin
+
+github
+
+mobile
+
+goal
+
+Work in the Open-Source world to innovative solutions that bring a real social
+progress.
+
+education
+
+Laurea
+
+(Master Degree)
+
+1996-2002
+
+University of Rome ”La Sapienza”
+
+110/110 · Mathematics
+Skills: Geometry, Algebra, Analysis, Physics (Mechanics, Electromagnetism)
+Thesis: Arithmetic-Geometric Mean and Algebraic Curves
+Advisor: Kieran O’Grady
+
+1992-1996
+
+Liceo Scientiﬁco ”E. Majorana”, Latina
+
+High School
+Diploma
+
+60/60 · Maturit`a Scientiﬁca
+
+work experience
+
+Digital
+Transformation
+Department -
+Italian
+Government
+Rome
+Digital
+Transformation
+Team - Italian
+Government
+Rome
+Par-Tec Spa
+Rome
+
+2021
+
+API Expert
+
+Fostering a cross-border national API ecosystem. Support Next Generation EU
+interoperability projects.
+
+2018
+
+Full-Stack Developer
+
+Contributing to the Italian API guidelines interfacing with European agencies
+and standardization organizations (IETF, W3C).
+Principal technologies: OpenAPI, REST, HTTP
+
+2014–Present
+
+Solutions Architect
+
+Planning and reviewing multi-tier, resilient, cloud and enterprise architectures
+based on open-source components.
+Principal technologies: Open{Stack, Shift}, Ansible, JBoss, SOAP/REST
+webservices, database replication.
+
+2011–2014
+
+Community Manager
+
+Babel srl
+Rome area
+
+Fostering community around open source projects created and participated by
+Babel.
+
+2007–2011
+
+Project Leader
+
+Babel srl
+Rome area
+
+Manage the delivery of ISP-wide mail systems. I led a team of sysadmins and
+developers contributing to match the customer requirements in the more
+standard and open way.
+
+2005–2007
+
+C developer and system integrator
+
+2
+
+Babel srl
+Rome area
+
+Integrating different communication infrastructures (mail,voip,sms,chat)
+enhancing various opensource software; from architectural design to software
+implementation. Maintainer of Caldav4j Libraries. Customization of
+opensource software (courier-imap, postﬁx, openssl, rrdjtool ..).
+
+Sistema Impresa
+srl
+Latina area
+
+Edin spa
+Turin
+
+EuroPython
+
+2004–2005
+
+Security Ofﬁcer
+
+Validating the compliance of IT infrastructures to the Italian Privacy Code.
+
+2002–2004
+
+System Administrator
+
+IT Consultant at Alenia Spazio Spa (now Thales Alenia Space)
+SysAdmin on all unix ﬂavours (Linux, Tru64, Solaris, AIX, Irix); Backup
+management and design;
+
+community
+
+2012–2022
+
+EuroPython Speaker/Trainer
+
+I started loving python in 2010 and contributed to various python project,
+including openstack-shade, openshift-on-openstack templates, python-samba
+library and the dsadmin ldap framework that is now incorporated in 389ds.
+Since then I have been selected as a speaker and trainer at Europython for
+2012-2022.
+
+2007-
+
+CalDAV4j Maintainer
+
+CalDAV4j
+
+CalDAV4j is the java library implementing RFC4791, the open calendaring
+protocol implemented between others by Apple Calendar Server, Google and
+Bedework.
+
+Open Source
+
+2007-
+
+Contributor
+
+Good knowledge of opensource ecosystem learned joining and leading
+opensource projects. I’ve contributed to various opensource software, including
+psutil-ng (added thread support to pgrep), dstat, ansible, the MySQL docker
+image and mysql-utilities, Bedework Calendar Server.
+
+Social
+
+Good motivational and conﬂict resolution skills. Child educator from 1992 to
+1999, Boy Scouting.
+
+Other
+
+computer skills
+
+Systems
+
+Red Hat Certiﬁed {Virtualization Administrator, Engineer} #110-698-545
+MongoDB Certiﬁed DBA #618-598-629
+Oracle MySQL Certiﬁed DBA Linux user since 1998.
+
+Programming
+
+Python, C, Java, Bash, SQL.
+
+Applications &
+Middleware
+Databases
+
+Network &
+Storage
+
+Kubernetes, Docker, Open{Stack,Shift}, JBoss EAP, Ansible, API Gateways.
+
+MongoDB, MySQL, Oracle, Redis.
+
+Basic L2 and TCP/IP troubleshooting, socket programming, LAN/SAN
+conﬁguration (Netapp, EMC2 and Centera).
+
+Curious about
+
+NoSQL, Data Science.
+
+Other
+
+Italian Privacy Law (d.lgs. 196/2003). Software licensing and copyright issues.
+
+3
+
+Languages
+
+Italian · Mothertongue.
+English ·
+
+Intermediate (conversationally ﬂuent).
+
+Interests
+
+Literature · Public Administration · Music.
+
+July 26, 2022

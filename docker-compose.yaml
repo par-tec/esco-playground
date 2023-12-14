@@ -1,35 +1,32 @@
 #
-# Run this file using
 #
-# $ docker-compose up processor
+#
+# $ docker-compose up -d virtuoso
 #
 version: "3.9"
 services:
-  pre-commit:
-    build:
-      context: .
-      dockerfile: tests/Dockerfile.pre-commit
-    working_dir: /code
+  qdrant:
+    image: qdrant/qdrant:latest
+    ports:
+      - "6333:6333"
+      - "6334:6334"
+  cors:
+    image: nginx
+    depends_on:
+    - virtuoso
+    volumes:
+      - ./sparql/nginx.conf:/etc/nginx/conf.d/default.conf
+    ports:
+      - "8890:80/tcp"
+  virtuoso:
+    # user: "1000:1000"
+    image: tenforce/virtuoso
+    ports:
+    - "18890:8890/tcp"
     volumes:
     - .:/code
-  super-linter:
-    image: github/super-linter:v3.15.5
-    environment:
-    - RUN_LOCAL=true
-    - VALIDATE_MARKDOWN=false
-    - VALIDATE_PYTHON_ISORT=false
-    - VALIDATE_XML=false
-    - VALIDATE_NATURAL_LANGUAGE=false
-    - IGNORE_GITIGNORED_FILES=true
-    volumes:
-    - .:/tmp/lint/
-    - ./tox.ini:/action/lib/.automation/.flake8
-  # This container will run successfully
-  # only if all dependencies return no errors.
-  test:
-    image: busybox
-    depends_on:
-      pre-commit:
-        condition: service_completed_successfully
-      super-linter:
-        condition: service_completed_successfully
+    - ./vocabularies:/usr/local/virtuoso-opensource/share/virtuoso/vad/vocabularies
+    - ./ontologies:/usr/local/virtuoso-opensource/share/virtuoso/vad/ontologies
+    - ./schemas:/usr/local/virtuoso-opensource/share/virtuoso/vad/schemas
+    - ./sparql/virtuoso.sh:/virtuoso.sh
+    - ./sparql/virtuoso.ini:/conf/virtuoso.ini
