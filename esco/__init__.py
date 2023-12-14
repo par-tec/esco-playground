@@ -1,8 +1,8 @@
 import io
 import logging
+from pathlib import Path
 
 import pandas as pd
-import spacy
 
 # Load a larger pipeline with vectors
 from SPARQLWrapper import CSV, SPARQLWrapper
@@ -10,7 +10,13 @@ from SPARQLWrapper import CSV, SPARQLWrapper
 log = logging.getLogger(__name__)
 
 
-#
+def load_esco_js():
+    """Load the skills from the JSON file."""
+    df = pd.read_json(Path(__file__).parent / "esco.json.gz", orient="record")
+    df.index = df.s
+    return df
+
+
 # Sparql
 #
 def sparql_query(query, url="http://localhost:18890/sparql"):
@@ -66,9 +72,10 @@ def load_esco(categories=None):
         + """ }
 
     ?s a esco:Skill ;
-    skos:prefLabel ?label ;
-    skos:broader* ?category  ;
-    esco:skillType _:skillType
+        skos:prefLabel ?label ;
+        skos:broader* ?category  ;
+        esco:skillType _:skillType ;
+        iso-thes:status "released"
     .
 
     _:skillType skos:prefLabel ?skillType .
@@ -94,9 +101,9 @@ def load_esco(categories=None):
     return df
 
 
-def load_skills():
+def load_skills(source="sparql"):
     # Concatenate the values label, altLabel and description in the `text` column separated by "; "
-    df = load_esco()
+    df = load_esco() if source == "sparql" else load_esco_js()
     skills = df.groupby(df.s).agg(
         {
             "altLabel": lambda x: list(x),
@@ -105,51 +112,16 @@ def load_skills():
             "skillType": lambda x: x.iloc[0],
         }
     )
+    # Add a lowercase text field for semantic search.
     skills["text"] = skills.apply(
-        lambda x: "; ".join([x.label] + x.altLabel + [x.description]), axis=1
+        lambda x: "; ".join([x.label] + x.altLabel + [x.description]).lower(), axis=1
     )
-    skills["text"] = skills["text"].str.lower()
+    # .. and a set of all the labels for each skill.
+
     skills["allLabel"] = skills.apply(
         lambda x: {t.lower() for t in x.altLabel} | {x.label.lower()}, axis=1
     )
     return skills
-
-
-def make_pattern(kn: dict):
-    """Given an ESCO skill entry in the dataframe, create a pattern for the matcher.
-
-    The entry has the following fields:
-    - label: the preferred label
-    - altLabel: a list of alternative labels
-    - the skillType: e.g. knowledge, skill, ability
-
-    The logic uses some euristic to decide whether to use the preferred label or the alternative labels.
-    """
-    label = kn["label"]
-    pattern = [{"LOWER": label.lower()}] if len(label) > 3 else [{"TEXT": label}]
-    patterns = [pattern]
-    altLabel = [kn["altLabel"]] if isinstance(kn["altLabel"], str) else kn["altLabel"]
-    for alt in altLabel:
-        if len(alt) <= 3:
-            candidate = [{"TEXT": alt}]
-        elif len(alt.split()) > 1:
-            candidate = [{"LOWER": x} for x in alt.lower().split()]
-        else:
-            candidate = [{"LOWER": alt.lower()}]
-        if candidate not in patterns:
-            patterns.append(candidate)
-    pattern_identifier = (
-        f"{kn['skillType'][:2]}_{label.replace(' ', '_')}".upper().translate(
-            str.maketrans("", "", "()")
-        )
-    )
-    return pattern_identifier, patterns
-
-
-def esco_matcher():
-    skills = load_skills()
-    # Create the patterns for the matcher
-    return dict(make_pattern(kni) for kni in skills.to_dict(orient="records"))
 
 
 def infer_skills_from_products(skills, product_labels: list):
@@ -162,44 +134,23 @@ def infer_skills_from_products(skills, product_labels: list):
     return ret[["label"]].to_dict(orient="index")
 
 
-def infer_skills_from_skills(skill_uri: str):
+def infer_skills_from_skill(skill_uri: str):
     """
     Infer skills from a set of skills.
     """
     query = f"""
-    SELECT DISTINCT * WHERE {{
+    SELECT DISTINCT (?parent AS ?s) ?label WHERE {{
 
     ?parent a esco:Skill ;
-    skos:prefLabel ?label
+        skos:prefLabel ?label
+
     .
 
-    <{skill_uri}> skos:broader* ?parent .
+    <{skill_uri}> skos:broaderTransitive+ ?parent .
 
     FILTER (lang(?label) = 'en')
     }}"""
 
-    print(query)
     res = sparql_query(query, url="http://localhost:18890/sparql")
     df = pd.read_csv(io.StringIO(res.decode()))
-    return df[["label"]].to_dict(orient="index")
-
-
-def main():
-    """Generate the esco matching model."""
-    log.info("Generating the esco matcher")
-    m = esco_matcher()
-    esco_p = [
-        {
-            "label": "ESCO",
-            "pattern": pattern,
-        }
-        for k, p in m.items()
-        for pattern in p
-    ]
-    log.info("Loading the spacy model")
-    nlp_e = spacy.load("en_core_web_trf")
-    ruler = nlp_e.add_pipe("entity_ruler", after="ner")
-    ruler.add_patterns(esco_p)
-    log.info("Saving the model")
-    nlp_e.to_disk("generated/en_core_web_trf_esco_ner")
-    log.info("Done")
+    return df.groupby(df.s).agg(lambda x: x.iloc[0]).to_dict(orient="index")

@@ -31,6 +31,22 @@ To regenerate the NER model, you need the ESCO dataset in turtle format.
    xdg-open http://localhost:5000/esco/v0.0.1/ui/
    ```
 
+## Regenerate the model
+
+To regenerate the model, you need to setup the esco dataset as explained above
+and then run the following commands:
+
+```bash
+rm ./generated/output/ -fr
+mkdir -p generated/output
+pip install .
+python model.py
+python -m spacy package ./generated/en_core_web_trf_esco_ner ./generated/output --build wheel
+(
+   cd huggingface-hub push generated/output/en_core_web_trf_esco_ner*/dist/;
+   python -m spacy en_core_web_trf_esco_ner*.whl
+)
+```
 
 ## Contributing
 

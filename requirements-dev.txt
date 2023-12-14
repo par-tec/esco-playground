@@ -1,2 +1,5 @@
 # Further requirements file for testing safety.
 pytest
+spacy-huggingface-hub
+sentence_transformers
+jupyter

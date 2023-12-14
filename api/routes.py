@@ -1,11 +1,7 @@
-from pathlib import Path
-
 import spacy
 from connexion import ProblemException
 
-model_file = Path(__file__).parent / ".." / "generated" / "en_core_web_trf_esco_ner"
-
-nlp_e = spacy.load(model_file.as_posix())
+nlp_e = spacy.load("en_core_web_trf_esco_ner")
 
 
 def recognize_entities(body, user=None):
