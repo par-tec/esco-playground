@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import pytest
 import spacy
 from spacy.language import Language
@@ -40,3 +42,11 @@ def test_esco_matcher():
         m1 = Matcher(nlp_test.vocab, validate=True)
         for pid, patterns in m.items():
             m1.add(pid, patterns)
+
+
+def test_model():
+    DATADIR = Path(__file__).parent.parent / "tests" / "data"
+    text = (DATADIR / "rpolli.txt").read_text()
+    nlp = spacy.load("../generated/en_core_web_trf_esco_ner")
+    nlp(text)
+    raise NotImplementedError

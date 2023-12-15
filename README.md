@@ -10,21 +10,21 @@ To regenerate the NER model, you need the ESCO dataset in turtle format.
 
 1. download the ESCO 1.1.1 database in text/turtle format  `ESCO dataset - v1.1.1 - classification -  - ttl.zip` from the [ESCO portal](https://ec.europa.eu/esco/portal) and unzip the `.ttl` file under the`vocabularies` folder.
 
-2. execute the sparql server that will be used to serve the ESCO dataset,
+1. execute the sparql server that will be used to serve the ESCO dataset,
    and wait for the server to spin up and load the ~700MB dataset.
-   This can be done with the following command:
+   :warning: It will take a couple of minutes, so you need to wait for the server to be ready.
 
    ```bash
    docker-compose up -d virtuoso
    ```
 
-3. run the tests
+1. run the tests
 
    ```bash
    tox -e py3
    ```
 
-4. run the API
+1. run the API
 
    ```bash
    connexion run api/openapi.yaml &
@@ -33,14 +33,14 @@ To regenerate the NER model, you need the ESCO dataset in turtle format.
 
 ## Regenerate the model
 
-To regenerate the model, you need to setup the esco dataset as explained above
+To regenerate the model, you need to setup the ESCO dataset as explained above
 and then run the following commands:
 
 ```bash
 rm ./generated/output/ -fr
 mkdir -p generated/output
-pip install .
-python model.py
+pip install -r requirements-dev.txt
+python model/model.py
 python -m spacy package ./generated/en_core_web_trf_esco_ner ./generated/output --build wheel
 (
    cd huggingface-hub push generated/output/en_core_web_trf_esco_ner*/dist/;

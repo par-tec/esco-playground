@@ -4,7 +4,7 @@ from pathlib import Path
 
 import spacy
 
-from esco import load_skills
+from esco import load_esco, load_skills
 
 log = logging.getLogger(__name__)
 
@@ -40,16 +40,32 @@ def make_pattern(kn: dict):
     return pattern_identifier, patterns
 
 
-def esco_matcher():
-    skills = load_skills()
+def esco_matcher(skills):
     # Create the patterns for the matcher
     return dict(make_pattern(kni) for kni in skills.to_dict(orient="records"))
 
 
 def main():
     """Generate the esco matching model."""
+
+    log.info("Loading the skills from the SPARQL endpoint")
+    skills = load_skills()
+    log.info(f"Loaded {len(skills)} skills")
+
     log.info("Generating the esco matcher")
-    m = esco_matcher()
+    m = esco_matcher(skills)
+
+    log.info("Validate the matcher")
+    nlp_test = spacy.blank("en")
+    m1 = spacy.matcher.Matcher(nlp_test.vocab, validate=True)
+    for pid, patterns in m.items():
+        m1.add(pid, patterns)
+
+    log.info("Update the esco.json.gz file")
+    esco = load_esco()
+    esco.to_json("esco/esco.json.gz", orient="records", compression="gzip")
+
+    log.info("Generating the patterns")
     esco_p = [
         {
             "label": "ESCO",

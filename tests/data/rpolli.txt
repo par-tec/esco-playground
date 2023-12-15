@@ -85,7 +85,7 @@ Solutions Architect
 
 Planning and reviewing multi-tier, resilient, cloud and enterprise architectures
 based on open-source components.
-Principal technologies: Open{Stack, Shift}, Ansible, JBoss, SOAP/REST
+Principal technologies: OpenStack, OpenShift, Kubernetes, Ansible, JBoss, SOAP and REST
 webservices, database replication.
 
 2011–2014
@@ -205,7 +205,7 @@ Databases
 Network &
 Storage
 
-Kubernetes, Docker, Open{Stack,Shift}, JBoss EAP, Ansible, API Gateways.
+Kubernetes, Docker, OpenStack, OpenShift, JBoss EAP, Ansible, API Gateways.
 
 MongoDB, MySQL, Oracle, Redis.
 

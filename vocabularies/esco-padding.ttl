@@ -1,0 +1,65 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix esco: <http://data.europa.eu/esco/model#> .
+@prefix iso-thes: <http://purl.org/iso25964/skos-thes#> .
+@prefix skos: <http://www.w3.org/2004/02/skos/core#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+### Annotations
+
+<http://data.europa.eu/esco/skill/76ef6ed3-1658-4a1a-9593-204d799c6d0c> skos:altLabel "DevSecOps"@en,
+        "OpenAPI"@en,
+        "REST"@en,
+        "SOAP"@en,
+        "Swagger"@en,
+        "Webservices"@en,
+        "WSDL"@en .
+
+<http://par-tec.it/esco/node-literal/eba06b6e-f18b-4407-984f-2abea8469d01> a esco:NodeLiteral ;
+    esco:language "en"^^xsd:language ;
+    esco:nodeLiteral "The computer program MongoDB is a tool for creating, updating and managing document oriented databases." .
+
+<http://par-tec.it/esco/skill/8534efcf-7e31-4e56-bcfc-4f380cec7ab0> a esco:MemberConcept,
+        esco:Skill,
+        skos:Concept ;
+    skos:prefLabel "MongoDB"@en ;
+    skos:altLabel "Mongo Atlas"@en,
+        "MongoDB"@en ;
+    dcterms:description <http://par-tec.it/esco/node-literal/eba06b6e-f18b-4407-984f-2abea8469d01> ;
+    dcterms:modified "2023-07-05T14:33:28.658000+00:00"^^xsd:dateTime ;
+    esco:hasAssociation <http://data.europa.eu/esco/relation/56BDFC12-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/56CE7AC4-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/56DF5646-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/5673D5B0-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/5673DA06-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/5695B1D1-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/5695BE83-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/5663201C-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/56632210-1AD9-11E7-B43F-E10FE2FA9FC2>,
+        <http://data.europa.eu/esco/relation/56849468-1AD9-11E7-B43F-E10FE2FA9FC2> ;
+    esco:isOptionalSkillFor <http://data.europa.eu/esco/occupation/3d190639-90f8-4402-b1b3-a104a17e0d67>,
+        <http://data.europa.eu/esco/occupation/4e4a1aa1-ca53-406e-9ca6-889d4621a0ed>,
+        <http://data.europa.eu/esco/occupation/8c57af09-719c-42b3-be40-6ed4946236cc>,
+        <http://data.europa.eu/esco/occupation/8d9ec84d-cf2d-4179-87bc-335cda54a427>,
+        <http://data.europa.eu/esco/occupation/98c3d8f8-e3a8-49b7-9e58-236f25a6f6a0>,
+        <http://data.europa.eu/esco/occupation/1562c7a3-c7d9-419d-b9b6-db26610bcf84>,
+        <http://data.europa.eu/esco/occupation/9729c0f3-c9bc-482e-ac59-a82ec3b67ba3>,
+        <http://data.europa.eu/esco/occupation/b11e1742-5e28-4270-b081-b0193d85ee7d>,
+        <http://data.europa.eu/esco/occupation/e297ec12-4712-40a4-ad98-ba004cacb205>,
+        <http://data.europa.eu/esco/skill/7369f779-4b71-4aab-8836-48b69c676eec> ;
+    esco:referenceLanguage "en"^^xsd:language ;
+    esco:skillReuseLevel <http://data.europa.eu/esco/skill-reuse-level/sector-specific> ;
+    esco:skillType <http://data.europa.eu/esco/skill-type/knowledge> ;
+    iso-thes:status "released" ;
+    skos:broader <http://data.europa.eu/esco/isced-f/0612>,
+        <http://data.europa.eu/esco/skill/ab1e97ed-2319-4293-a8b7-072d2648822f> ;
+    skos:broaderTransitive <http://data.europa.eu/esco/isced-f/06>,
+        <http://data.europa.eu/esco/isced-f/061>,
+        <http://data.europa.eu/esco/isced-f/0612>,
+        <http://data.europa.eu/esco/skill/ab1e97ed-2319-4293-a8b7-072d2648822f>,
+        <http://data.europa.eu/esco/skill/c46fcb45-5c14-4ffa-abed-5a43f104bb22> ;
+    skos:inScheme <http://data.europa.eu/esco/concept-scheme/6c930acd-c104-4ece-acf7-f44fd7333036>,
+        <http://data.europa.eu/esco/concept-scheme/member-skills>,
+        <http://data.europa.eu/esco/concept-scheme/skills> ;
+    skos:topConceptOf <http://data.europa.eu/esco/concept-scheme/6c930acd-c104-4ece-acf7-f44fd7333036> .
+
+### Serialized using the ttlser deterministic serializer v1.2.1
