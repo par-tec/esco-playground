@@ -50,16 +50,9 @@ Diploma
 
 work experience
 
-Digital
-Transformation
-Department -
-Italian
-Government
+Digital Transformation Department - Italian Government
 Rome
-Digital
-Transformation
-Team - Italian
-Government
+Digital Transformation Team - Italian Government
 Rome
 Par-Tec Spa
 Rome
@@ -143,8 +136,7 @@ Validating the compliance of IT infrastructures to the Italian Privacy Code.
 System Administrator
 
 IT Consultant at Alenia Spazio Spa (now Thales Alenia Space)
-SysAdmin on all unix ﬂavours (Linux, Tru64, Solaris, AIX, Irix); Backup
-management and design;
+SysAdmin on all unix ﬂavours (Linux, Tru64, Solaris, AIX, Irix); Backup management and design;
 
 community
 

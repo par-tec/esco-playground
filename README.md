@@ -66,3 +66,44 @@ Besides all the explanations in the [CONTRIBUTING.md](CONTRIBUTING.md) file, you
 ```bash
 docker-compose run pre-commit
 ```
+
+
+## Using on GCP
+
+If you need a GPU server, you can
+
+1. create a new GPU machine using the pre-built `debian-11-py310` image.
+   The command is roughly the following
+
+   ```bash
+   gcloud compute instances create instance-2 \
+      --machine-type=n1-standard-4 \
+      --create-disk=auto-delete=yes,boot=yes,device-name=instance-1,image=projects/ml-images/global/images/c0-deeplearning-common-gpu-v20231209-debian-11-py310,mode=rw,size=80,type=projects/${PROJECT}/zones/europe-west1-b/diskTypes/pd-standard \
+      --no-restart-on-failure \
+      --maintenance-policy=TERMINATE \
+      --provisioning-model=STANDARD \
+      --accelerator=count=1,type=nvidia-tesla-t4 \
+      --no-shielded-secure-boot \
+      --shielded-vtpm \
+      --shielded-integrity-monitoring \
+      --labels=goog-ec-src=vm_add-gcloud \
+      --reservation-affinity=any \
+      --zone=europe-west1-b \
+      ...
+
+   ```
+
+2. access the machine and finalize the CUDA installation. Rember to enable port-forwarding for the jupyter notebook
+
+   ```bash
+   gcloud compute ssh --zone "europe-west1-b" "deleteme-gpu-1" --project "esco-test" -- -NL 8081:localhost:8081
+
+   ```
+
+3. checkout the project and install the requirements
+
+   ```bash
+   git clone https://github.com/par-tec/esco-playground.git
+   cd esco-playground
+   pip install -r requirements-dev.txt -r requirements.txt
+   ```

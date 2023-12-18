@@ -1,6 +1,5 @@
 spacy==3.7.2
 spacy-curated-transformers==0.2.1
-spacy-huggingface-hub==0.0.10
-# spacy[cuda113]
+sparqlwrapper
 
 https://huggingface.co/ioggstream/en_core_web_trf_esco_ner/resolve/main/en_core_web_trf_esco_ner-any-py3-none-any.whl

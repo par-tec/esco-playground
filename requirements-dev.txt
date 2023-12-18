@@ -1,5 +1,11 @@
 # Further requirements file for testing safety.
 pytest
-spacy-huggingface-hub
 sentence_transformers
 jupyter
+sparqlwrapper
+
+# Spacy GPU support.
+spacy[cuda113]
+
+# Tool to upload the model to the HuggingFace Hub.
+spacy-huggingface-hub==0.0.10
