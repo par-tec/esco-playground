@@ -10,7 +10,7 @@ build-backend = "setuptools.build_meta"
 dependencies = {file = ["requirements.txt"]}
 
 [tool.setuptools.package-data]
-esco = ["esco.json.gz"]
+esco = ["esco*.json.gz"]
 
 [tool.setuptools.packages.find]
 exclude = ["docs*", "tests*"]

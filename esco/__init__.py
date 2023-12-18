@@ -10,11 +10,18 @@ from SPARQLWrapper import CSV, SPARQLWrapper
 log = logging.getLogger(__name__)
 
 
-def load_esco_js():
+def load_esco_js(table="skills"):
     """Load the skills from the JSON file."""
-    df = pd.read_json(Path(__file__).parent / "esco.json.gz", orient="record")
-    df.index = df.s
-    return df
+    if table == "skills":
+        fpath = "esco.json.gz"
+        idx = "s"
+    elif table == "occupations":
+        fpath = "esco_o.json.gz"
+        idx = "o"
+    else:
+        raise ValueError(f"Unknown table {table}")
+    df = pd.read_json(Path(__file__).parent / fpath, orient="record")
+    return df.set_index(idx)
 
 
 # Sparql
@@ -73,7 +80,7 @@ def load_esco(categories=None):
 
     ?s a esco:Skill ;
         skos:prefLabel ?label ;
-        skos:broader* ?category  ;
+        skos:broaderTransitive* ?category  ;
         esco:skillType _:skillType ;
         iso-thes:status "released"
     .
@@ -104,10 +111,10 @@ def load_esco(categories=None):
 def load_skills(source="sparql"):
     # Concatenate the values label, altLabel and description in the `text` column separated by "; "
     df = load_esco() if source == "sparql" else load_esco_js()
-    skills = df.groupby(df.s).agg(
+    skills = df.groupby("s").agg(
         {
-            "altLabel": lambda x: list(x),
             "label": lambda x: x.iloc[0],
+            "altLabel": lambda x: list(set(x)),
             "description": lambda x: x.iloc[0],
             "skillType": lambda x: x.iloc[0],
         }
@@ -154,3 +161,84 @@ def infer_skills_from_skill(skill_uri: str):
     res = sparql_query(query, url="http://localhost:18890/sparql")
     df = pd.read_csv(io.StringIO(res.decode()))
     return df.groupby(df.s).agg(lambda x: x.iloc[0]).to_dict(orient="index")
+
+
+def load_isco(categories=None):
+    categories = categories or [  # Defaults to ICT professionals and technicians.
+        "http://data.europa.eu/esco/isco/C25",
+        "http://data.europa.eu/esco/isco/C35",
+    ]
+
+    categories = "\n".join([f"<{uri}>" for uri in categories])
+
+    res = sparql_query(
+        """
+
+    SELECT DISTINCT * WHERE {
+
+    VALUES ?category { """
+        + categories
+        + """ }
+
+    ?o a esco:Occupation ;
+        skos:prefLabel ?label ;
+        esco:relatedEssentialSkill ?s ;
+        skos:broaderTransitive* ?category  ;
+        iso-thes:status "released"
+    .
+
+    # Get current skill labels associated
+    #  with the occupation.
+    ?s skos:prefLabel ?skill ;
+        esco:skillType ?skillType ;
+        iso-thes:status "released"
+        .
+    FILTER (lang(?skill) = "en")
+
+    # If an occupation lacks a description,
+    #   don't skip it.
+    OPTIONAL {
+        ?o skos:altLabel ?altLabel .
+        ?o dct:description _:description .
+
+        _:description
+        esco:nodeLiteral ?description;
+        esco:language "en"^^xsd:language
+        .
+    }
+
+    FILTER (lang(?label) = "en")
+    FILTER(lang(?altLabel) = "en")
+                    }"""
+    )
+    df = pd.read_csv(io.StringIO(res.decode()))
+    return df
+
+
+def load_occupations(source="sparql"):
+    occupations = load_isco() if source == "sparql" else load_esco_js("occupations")
+    o = occupations.groupby("o").apply(
+        lambda x: pd.Series(
+            {
+                "label": x.label.iloc[0],
+                "altLabel": list(set(x.altLabel)),
+                "description": x.description.iloc[0],
+                "skill": list(set(x.skill.values)),
+                "skill_": list(set(x[x.skillType.str.endswith("skill")].skill.values)),
+                "knowledge_": list(
+                    set(x[x.skillType.str.endswith("knowledge")].skill.values)
+                ),
+                "s": list(set(x.s.values)),
+            }
+        )
+    )
+    # Add a lowercase text field for semantic search.
+    o["text"] = o.apply(
+        lambda x: "; ".join([x.label] + x.altLabel + [x.description]).lower(), axis=1
+    )
+    # .. and a set of all the labels for each skill.
+
+    o["allLabel"] = o.apply(
+        lambda x: {t.lower() for t in x.altLabel} | {x.label.lower()}, axis=1
+    )
+    return o

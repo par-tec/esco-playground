@@ -16,6 +16,27 @@ tags:
   - name: "ner"
     description: "Named Entity Recognition"
 paths:
+  /skills/{uri}:
+    get:
+      operationId: api.routes.show_skill
+      description: |-
+        Return the skill identified by the given URI
+      tags:
+        - "skills"
+      parameters:
+        - name: uri
+          in: path
+          description: "Skill URI"
+          required: true
+          schema:
+            type: "string"
+      responses:
+        "200":
+          description: "Successful operation"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Skill"
   /skills:
     get:
       operationId: "api.routes.list_skills"
@@ -24,6 +45,12 @@ paths:
       tags:
         - "skills"
       parameters:
+        - name: q
+          in: query
+          description: "Search query"
+          required: false
+          schema:
+            type: "string"
         - $ref: https://teamdigitale.github.io/openapi/master/definitions.yaml#/components/parameters/limit
       responses:
         "200":
@@ -33,7 +60,9 @@ paths:
               schema:
                 type: "object"
                 properties:
-                  skills:
+                  count:
+                    type: "integer"
+                  items:
                     type: "array"
                     maxItems: 100
                     items:
@@ -90,3 +119,5 @@ components:
           type: "array"
           items:
             type: "string"
+        skillType:
+          type: "string"
