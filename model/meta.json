@@ -1,0 +1,10 @@
+{
+  "lang":"en",
+  "name":"core_web_trf_esco_ner",
+  "version":"3.7.3",
+  "description":"English transformer pipeline based on en_core_web_trf plus an entity recognizer based on the ESCO taxonomy. (Transformer(name='roberta-base', piece_encoder='byte-bpe', stride=104, type='roberta', width=768, window=144, vocab_size=50265)). Components: transformer, tagger, parser, ner, attribute_ruler, lemmatizer.",
+  "author":"robipolli@gmail.com",
+  "email":"robipolli@gmail.com",
+  "url":"https://github.com/par-tec/esco-playground",
+  "license":"MIT"
+}

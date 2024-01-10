@@ -1,6 +1,108 @@
 # ESCO Playground
 
-This repository contains the code for the ESCO Playground.
+The ESCO Playground is a repository to play with the ESCO dataset,
+and to test different approaches to extract skills from text.
+
+:warning: This is a work in progress, and it is not ready for production.
+
+## Installation
+
+To install the package, you can use pip:
+
+```bash
+pip install git+https://github.com/par-tec/esco-playground
+```
+
+Optional dependencies are:
+
+```bash
+pip install esco[langchain]
+pip install esco[dev]
+```
+
+## Usage
+
+The simplest way to use this module is via the `LocalDB` class:
+
+```python
+from esco import LocalDB
+
+esco_data = LocalDB()
+
+# Get a skill by its URI.
+skill = esco_data.get("esco:b0096dc5-2e2d-4bc1-8172-05bf486c3968")
+
+# Search a list of skill using labels.
+skills = esco_data.search_products({"python", "java"})
+```
+
+To use extra features such as text to skill extraction
+you need to install the optional dependencies
+(which are really slow if you don't have a GPU).
+
+```bash
+pip install esco[langchain]
+```
+
+Use the `EscoCV` and the `Ner` classes to extract skills from text:
+
+```python
+from esco.cv import EscoCV
+from esco import LocalDB
+from esco.ner import Ner
+
+# Initialize the vector index (slow) on disk.
+# This can be reused later.
+datadir = Path("/tmp/esco-tmpdir")
+datadir.mkdir(exist_ok=True)
+cfg = {
+      "path": datadir / "esco-skills",
+      "collection_name": "esco-skills",
+   }
+db = LocalDB()
+db.create_vector_idx(cfg)
+db.close()
+
+# Now you can create a new db that loads the vector index.
+db = LocalDB(vector_idx_config=cfg)
+
+# and a recognizer class that used both the ESCO dataset and the vector index.
+cv_recognizer = Ner(db=db, tokenizer=nltk.sent_tokenize)
+
+# Now you can use the recognizer to extract skills from text.
+cv_text = """I am a software developer with 5 years of experience in Python and Java."""
+cv = cv_recognizer(text)
+
+# This will take some time.
+cv_skills = cv.skills()
+```
+
+
+
+If you have a sparql server with the ESCO dataset, you can use the `SparqlClient`:
+
+```python
+from esco.sparql import SparqlClient
+
+client = SparqlClient("http://localhost:8890/sparql")
+
+skills_df = client.load_skills()
+
+occupations_df = client.load_occupations()
+
+# You can even use custom queries returning a CSV.
+query = """SELECT ?skill ?label
+WHERE {
+    ?skill a esco:Skill .
+    ?skill skos:prefLabel ?label .
+    FILTER (lang(?label) = 'en')
+}"""
+skills = client.query(query)
+```
+
+
+## Development
+
 The jupyter notebook should work without the ESCO dataset,
 since an excerpt of the dataset is already included in `esco.json.gz`.
 
@@ -34,19 +136,19 @@ To regenerate the NER model, you need the ESCO dataset in turtle format.
 ## Regenerate the model
 
 To regenerate the model, you need to setup the ESCO dataset as explained above
-and then run the following commands:
+and then run the following command:
 
 ```bash
-rm ./generated/output/ -fr
-mkdir -p generated/output
-pip install -r requirements-dev.txt
-python model/model.py
-python -m spacy package ./generated/en_core_web_trf_esco_ner ./generated/output --build wheel
-(
-   cd huggingface-hub push generated/output/en_core_web_trf_esco_ner*/dist/;
-   python -m spacy en_core_web_trf_esco_ner*.whl
-)
+tox -e build-model
 ```
+
+To build and upload the model, provided you did `huggingface-cli login`:
+
+```bash
+tox -e build-model -- upload
+```
+
+```bash
 
 ## Contributing
 

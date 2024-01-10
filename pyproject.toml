@@ -1,6 +1,7 @@
 [project]
 name = "esco-playground"
 version = "0.0.1"
+dynamic = ['dependencies', 'optional-dependencies']
 
 [build-system]
 requires = ["setuptools", "setuptools-git-versioning"]
@@ -8,6 +9,8 @@ build-backend = "setuptools.build_meta"
 
 [tool.setuptools.dynamic]
 dependencies = {file = ["requirements.txt"]}
+optional-dependencies.dev = {file = ["requirements-dev.txt"]}
+optional-dependencies.langchain = {file = ["requirements-langchain.txt"]}
 
 [tool.setuptools.package-data]
 esco = ["esco*.json.gz"]

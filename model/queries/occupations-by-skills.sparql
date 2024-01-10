@@ -1,0 +1,36 @@
+prefix jolux: <http://data.legilux.public.lu/resource/ontology/jolux#>
+prefix adms:  <http://www.w3.org/ns/adms#>
+prefix skosXl: <http://www.w3.org/2008/05/skos-xl#>
+prefix owl:   <http://www.w3.org/2002/07/owl#>
+prefix skosxl: <http://www.w3.org/2008/05/skos-xl#>
+prefix org:   <http://www.w3.org/ns/org#>
+prefix xsd:   <http://www.w3.org/2001/XMLSchema#>
+prefix iso-thes: <http://purl.org/iso25964/skos-thes#>
+prefix skos:  <http://www.w3.org/2004/02/skos/core#>
+prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#>
+prefix vocab-adms: <https://www.w3.org/TR/vocab-adms/#>
+prefix at:    <http://publications.europa.eu/ontology/authority/>
+prefix dct:   <http://purl.org/dc/terms/>
+prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#>
+prefix esco:  <http://data.europa.eu/esco/model#>
+prefix rov:   <http://www.w3.org/ns/regorg#>
+prefix etms:  <http://data.europa.eu/esco/etms/model/#>
+prefix dcat:  <http://www.w3.org/ns/dcat#>
+prefix euvoc: <http://publications.europa.eu/ontology/euvoc#>
+prefix prov:  <http://www.w3.org/ns/prov#>
+prefix foaf:  <http://xmlns.com/foaf/0.1/>
+prefix qdr:   <http://data.europa.eu/esco/qdr#>
+
+SELECT DISTINCT ?occupation ?skill
+WHERE {
+  ?o a esco:Occupation ;
+    esco:relatedEssentialSkill ?s ;
+    skos:prefLabel ?occupation
+    .
+
+  ?s skos:prefLabel ?skill
+  .
+
+    FILTER (lang(?skill) = "en")
+    FILTER (lang(?occupation) = "en")
+}

@@ -6,10 +6,12 @@
 
 ### Annotations
 
+# Use scripting programming.
+<http://data.europa.eu/esco/skill/5ef0c719-5bcb-49f8-b8eb-824388225333> skos:altLabel "Bash"@en .
+
 <http://data.europa.eu/esco/skill/b16200f4-4f39-4b8b-aa9d-3568054d6bdb> skos:altLabel "Opensource"@en .
 
-<http://data.europa.eu/esco/skill/76ef6ed3-1658-4a1a-9593-204d799c6d0c> skos:altLabel "DevSecOps"@en,
-        "OpenAPI"@en,
+<http://data.europa.eu/esco/skill/b0096dc5-2e2d-4bc1-8172-05bf486c3968> skos:altLabel "OpenAPI"@en,
         "REST"@en,
         "SOAP"@en,
         "Swagger"@en,

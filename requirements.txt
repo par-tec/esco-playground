@@ -1,5 +1,17 @@
-spacy==3.7.2
-spacy-curated-transformers==0.2.1
-sparqlwrapper
+#
+# Dependencies for the esco module that can be
+#   installed by third party and might not require
+#   sparql access.
+# The en_core_web_trf_esco_ner must be downloaded
+#   from huggingface.
+#
+# --prefer-binary
 
-https://huggingface.co/ioggstream/en_core_web_trf_esco_ner/resolve/main/en_core_web_trf_esco_ner-any-py3-none-any.whl
+pandas==2.1.4
+spacy==3.7.2
+spacy-transformers==1.3.4
+spacy-curated-transformers==0.2.1
+sparqlwrapper==2.0.0
+sentence-transformers==2.2.2
+
+en_core_web_trf_esco_ner @ https://huggingface.co/ioggstream/en_core_web_trf_esco_ner/resolve/main/en_core_web_trf_esco_ner-any-py3-none-any.whl

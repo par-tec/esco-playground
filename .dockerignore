@@ -1,0 +1,8 @@
+.tox
+model
+build
+api
+ontologies
+qdrant-*
+schemas
+sparql

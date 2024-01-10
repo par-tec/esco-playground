@@ -5,6 +5,19 @@
 #
 version: "3.9"
 services:
+  dev:
+    build: .
+    working_dir: /code
+    volumes:
+      - .:/code
+    entrypoint: [sleep, infinity]
+
+  test:
+    build: .
+    working_dir: /code
+    volumes:
+      - .:/code
+    entrypoint: [tox, -e, py3]
   qdrant:
     image: qdrant/qdrant:latest
     ports:
