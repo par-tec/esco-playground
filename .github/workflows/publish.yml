@@ -1,0 +1,68 @@
+# This workflow template runs:
+#   - a tox container with tests
+#   - a service container (eg. a database) to be used by tox tests.
+
+name: release
+
+# Controls when the action will run.
+on:
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+    paths-ignore:
+      - "ISSUE_TEMPLATE/**"
+      - "README.md"
+  pull_request:
+    branches: [ main ]
+    paths-ignore:
+      - "ISSUE_TEMPLATE/**"
+      - "README.md"
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  test-job:
+    # The type of runner that the job will run on
+    timeout-minutes: 5
+    runs-on: ubuntu-latest
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      #  IMPORTANT!! By default `actions/checkout` just checkouts HEAD, so if you want
+      #              to checkout tags and branches too (eg. to auto-version your deployments)
+      #              you need to pass the `fetch-depth: 0` option. eg
+      #
+      #              uses: actions/checkout@v2
+      #              with:
+      #                fetch-depth: 0
+      - uses: actions/checkout@v3
+      - name: Setup.
+        run: |
+          pip install docker-compose
+      - name: Run tests.
+        run: |
+          docker-compose run --rm test
+      - name: Cleanup
+        run: docker-compose down && docker-compose rm --force
+
+  publish:
+    # Publish to PyPI. See https://docs.pypi.org/trusted-publishers/using-a-publisher/
+    timeout-minutes: 5
+    needs: test-job
+    runs-on: ubuntu-latest
+    container: python:3.9-slim
+    # Publish to the release environment.
+    #   See https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
+    environment: release
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v3
+      - name: Build
+        run: |
+          pip3 install --no-cache-dir build
+          python -m build
+      - name: Publish package distributions to PyPI
+        uses: pypa/gh-action-pypi-publish@release/v1
+        with:
+            repository-url: https://test.pypi.org/legacy/
