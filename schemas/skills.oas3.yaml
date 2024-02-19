@@ -1,0 +1,100 @@
+openapi: "3.0.0"
+info:
+  version: "0.0.1"
+  title: "Public Skill"
+  description: |-
+    A JSON Schema for Skills and Knowledges.
+
+    This schema is based on the ESCO model, and it is intended
+    to create interoperable skill descriptions
+    to be used in job offers, CVs, and other contexts.
+  contact:
+    name: "Public skill"
+    email: roberto.polli@par-tec.it
+paths: {}
+components:
+  schemas:
+    SkillSet:
+      description: |-
+        A set of skills. This can be expressed
+        in a job offer, a CV, or a learning path.
+      type: object
+      example:
+        "esco:ccd0a1d9-afda-43d9-b901-96344886e14d":
+          label: "Programming"
+        "esco:6f8a40d6-f9ce-43ec-a72f-d4213a53f3ed":
+          label: "Ansible"
+    SkillLabel:
+      description: |-
+        A skill label is a string that describe a skill.
+        It can be a single word, an acronym or a short sentence.
+
+        According to LD Keywords, semantic information are specified
+        in #/components/schemas/Skill/x-jsonld-context section.
+      type: "string"
+      maxLength: 100
+      example: "Programming"
+    Skill:
+      description: |-
+        A skill schema according to the ESCO model.
+
+        Since the skill URI is an URI, this schema allows
+        to extend the ESCO model with additional skills,
+        though retaining classifiers such as the `status`
+        and the `skillType`.
+
+        RDF bindings are based on this spec https://www.ietf.org/archive/id/draft-polli-restapi-ld-keywords-03.html.
+      x-jsonld-type: "http://data.europa.eu/esco/model#Skill"
+      x-jsonld-context:
+        esco: "http://data.europa.eu/esco/skill/"
+        escom: "http://data.europa.eu/esco/model#"
+        dct: "http://purl.org/dc/terms/"
+        iso-thes: "http://purl.org/iso25964/skos-thes#"
+        skos: "http://www.w3.org/2004/02/skos/core#"
+        uri: "@id"
+        label: "skos:prefLabel"
+        description: dct:description
+        altLabels: "skos:altLabel"
+        skillType:
+          "@id": "escom:skillType"
+          "@type": "@id"
+          "@context":
+            "@base": "http://data.europa.eu/esco/skill-type/"
+        status: "iso-thes:status"
+      type: "object"
+      additionalProperties: false
+      required:
+        - uri
+        - label
+      properties:
+        uri:
+          type: "string"
+          format: "uri"
+        label:
+          type: "string"
+        description:
+          type: "string"
+        altLabels:
+          type: "array"
+          maxItems: 30
+          items:
+            $ref: "#/components/schemas/SkillLabel"
+        skillType:
+          description: |-
+            The type of skill, according to the ESCO model.
+            The skill type is an URI, and it is expected to be
+            one of the following:
+            - http://data.europa.eu/esco/skill-type/knowledge
+            - http://data.europa.eu/esco/skill-type/skills
+          type: "string"
+          enum:
+            - "knowledge"
+            - "skill"
+      example:
+        uri: "esco:ccd0a1d9-afda-43d9-b901-96344886e14d"
+        label: "Programming"
+        description: "The ability to write computer programs"
+        altLabels:
+          - "Software development"
+          - "Coding"
+        skillType: "knowledge"
