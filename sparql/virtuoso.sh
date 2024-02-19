@@ -13,7 +13,7 @@ mkdir -p /data/dumps
 
 mv /clean-logs.sh . 2>/dev/null
 
-original_port=`crudini --get /conf/virtuoso.ini HTTPServer ServerPort`
+original_port=$(crudini --get /conf/virtuoso.ini HTTPServer ServerPort)
 # NOTE: prevents virtuoso to expose on port 8890 before we actually run
 #               the server
 original_port="${VIRT_HTTPServer_ServerPort:-${original_port}}"
@@ -31,7 +31,7 @@ then
     isql-v -U dba -P dba < $sql_query_sql
 
   kill "$(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')"
-  echo "`date +%Y-%m-%dT%H:%M:%S%:z`" >  $dba_pwd_lock
+  echo "$(date +%Y-%m-%dT%H:%M:%S%:z)" >  $dba_pwd_lock
 fi
 
 load_data_lock=$SETTINGS_DIR/.data_loaded
@@ -83,7 +83,7 @@ EOF
     virtuoso-t +wait && isql-v -U dba -P "$pwd" < "/${sql_file}"
 
     kill $(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')
-    echo "`date +%Y-%m-%dT%H:%M:%S%:z`" > "${lock_file}"
+    echo "$(date +%Y-%m-%dT%H:%M:%S%:z)" > "${lock_file}"
 
   fi
 
