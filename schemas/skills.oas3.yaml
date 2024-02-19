@@ -14,6 +14,16 @@ info:
 paths: {}
 components:
   schemas:
+    SkillSet:
+      description: |-
+        A set of skills. This can be expressed
+        in a job offer, a CV, or a learning path.
+      type: object
+      example:
+        "esco:ccd0a1d9-afda-43d9-b901-96344886e14d":
+          label: "Programming"
+        "esco:6f8a40d6-f9ce-43ec-a72f-d4213a53f3ed":
+          label: "Ansible"
     SkillLabel:
       description: |-
         A skill label is a string that describe a skill.
@@ -32,6 +42,8 @@ components:
         to extend the ESCO model with additional skills,
         though retaining classifiers such as the `status`
         and the `skillType`.
+
+        RDF bindings are based on this spec https://www.ietf.org/archive/id/draft-polli-restapi-ld-keywords-03.html.
       x-jsonld-type: "http://data.europa.eu/esco/model#Skill"
       x-jsonld-context:
         esco: "http://data.europa.eu/esco/skill/"
