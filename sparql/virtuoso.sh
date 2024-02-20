@@ -1,19 +1,18 @@
 #!/bin/bash
 SETTINGS_DIR=/settings
-DATA_PATH=/data
 
 echo "user: $USER"
 
 # Data is a docker volume.
 #  all stuff is moved there...
-cd /data
+cd /data || exit 1
 mkdir -p "${SETTINGS_DIR}"
 mkdir -p /data/dumps
 
 
 mv /clean-logs.sh . 2>/dev/null
 
-original_port=`crudini --get /conf/virtuoso.ini HTTPServer ServerPort`
+original_port=$(crudini --get /conf/virtuoso.ini HTTPServer ServerPort)
 # NOTE: prevents virtuoso to expose on port 8890 before we actually run
 #               the server
 original_port="${VIRT_HTTPServer_ServerPort:-${original_port}}"
@@ -30,8 +29,8 @@ then
   virtuoso-t +wait && isql-v -U dba -P dba < /data/dump_nquads_procedure.sql &&
     isql-v -U dba -P dba < $sql_query_sql
 
-  kill "$(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')"
-  echo "`date +%Y-%m-%dT%H:%M:%S%:z`" >  $dba_pwd_lock
+  pkill -f virtuoso-t
+  echo "$(date +%Y-%m-%dT%H:%M:%S%:z)" >  $dba_pwd_lock
 fi
 
 load_data_lock=$SETTINGS_DIR/.data_loaded
@@ -55,7 +54,7 @@ then
 
     virtuoso-t +wait && isql-v -U dba -P "$pwd" < $load_data_sql
 
-    kill $(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')
+    pkill -f virtuoso-t
 fi
 
 load_on_virtuoso(){
@@ -82,8 +81,8 @@ EOF
 
     virtuoso-t +wait && isql-v -U dba -P "$pwd" < "/${sql_file}"
 
-    kill $(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')
-    echo "`date +%Y-%m-%dT%H:%M:%S%:z`" > "${lock_file}"
+    pkill -f virtuoso-t
+    echo "$(date +%Y-%m-%dT%H:%M:%S%:z)" > "${lock_file}"
 
   fi
 
