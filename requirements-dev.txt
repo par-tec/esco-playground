@@ -10,7 +10,6 @@ jupyter
 
 # Spacy GPU support.
 # spacy[cuda113]
-en_core_web_trf @ https://github.com/explosion/spacy-models/releases/download/en_core_web_trf-3.7.3/en_core_web_trf-3.7.3-py3-none-any.whl
 
 # Further requirements file for running models
 langchain==0.1.0

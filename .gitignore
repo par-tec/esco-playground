@@ -140,3 +140,5 @@ out/
 vocabularies/esco-v1.1.1.ttl
 generated/
 tests/data/*-en-*yaml
+
+*deleteme*
