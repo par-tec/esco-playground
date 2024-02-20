@@ -1,0 +1,5 @@
+#
+# When packages are distributed on pypi, models should be
+#   downloaded manually from huggingface.
+#
+en_core_web_trf_esco_ner @ https://huggingface.co/ioggstream/en_core_web_trf_esco_ner/resolve/main/en_core_web_trf_esco_ner-any-py3-none-any.whl
