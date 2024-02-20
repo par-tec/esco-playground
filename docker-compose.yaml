@@ -18,6 +18,9 @@ services:
     volumes:
       - .:/code
     entrypoint: [tox, -e, py3]
+    depends_on:
+      - qdrant
+      - virtuoso
   qdrant:
     image: qdrant/qdrant:latest
     ports:
