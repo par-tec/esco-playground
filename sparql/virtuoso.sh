@@ -1,12 +1,11 @@
 #!/bin/bash
 SETTINGS_DIR=/settings
-DATA_PATH=/data
 
 echo "user: $USER"
 
 # Data is a docker volume.
 #  all stuff is moved there...
-cd /data
+cd /data || exit 1
 mkdir -p "${SETTINGS_DIR}"
 mkdir -p /data/dumps
 
@@ -30,7 +29,7 @@ then
   virtuoso-t +wait && isql-v -U dba -P dba < /data/dump_nquads_procedure.sql &&
     isql-v -U dba -P dba < $sql_query_sql
 
-  kill "$(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')"
+  pkill -f virtuoso-t
   echo "$(date +%Y-%m-%dT%H:%M:%S%:z)" >  $dba_pwd_lock
 fi
 
@@ -55,7 +54,7 @@ then
 
     virtuoso-t +wait && isql-v -U dba -P "$pwd" < $load_data_sql
 
-    kill $(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')
+    pkill -f virtuoso-t
 fi
 
 load_on_virtuoso(){
@@ -82,7 +81,7 @@ EOF
 
     virtuoso-t +wait && isql-v -U dba -P "$pwd" < "/${sql_file}"
 
-    kill $(ps aux | grep '[v]irtuoso-t' | awk '{print $2}')
+    pkill -f virtuoso-t
     echo "$(date +%Y-%m-%dT%H:%M:%S%:z)" > "${lock_file}"
 
   fi

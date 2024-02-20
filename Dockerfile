@@ -1,2 +1,2 @@
 FROM python:3.11-bookworm
-RUN apt -y update
+RUN apt-get -y update

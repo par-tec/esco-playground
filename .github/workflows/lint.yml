@@ -30,3 +30,4 @@ jobs:
           VALIDATE_PYTHON_ISORT: false
           VALIDATE_XML: false
           VALIDATE_NATURAL_LANGUAGE: false
+          PYTHON_PYLINT_CONFIG_FILE: .pylintrc
