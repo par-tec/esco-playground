@@ -22,7 +22,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  test-job:
+  test:
     # The type of runner that the job will run on
     timeout-minutes: 5
     runs-on: ubuntu-latest
@@ -50,7 +50,7 @@ jobs:
     timeout-minutes: 5
     needs: test-job
     runs-on: ubuntu-latest
-    container: python:3.9-slim
+    container: python:3.10-slim
     # Publish to the release environment.
     #   See https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
     environment: release
