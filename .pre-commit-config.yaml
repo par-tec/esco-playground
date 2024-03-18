@@ -64,3 +64,7 @@ repos:
     - id: python-safety-dependencies-check
       files: requirements.txt
       args: ["--short-report"]
+- repo: https://github.com/koalaman/shellcheck-precommit
+  rev: v0.10.0
+  hooks:
+  -   id: shellcheck

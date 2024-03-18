@@ -30,12 +30,12 @@ then
     isql-v -U dba -P dba < $sql_query_sql
 
   pkill -f virtuoso-t
-  echo "$(date +%Y-%m-%dT%H:%M:%S%:z)" >  $dba_pwd_lock
+  date +%Y-%m-%dT%H:%M:%S%:z >  $dba_pwd_lock
 fi
 
 load_data_lock=$SETTINGS_DIR/.data_loaded
 load_data_sql=$SETTINGS_DIR/load_data.sql
-if [ ! -f "$load_data_lock" -a -d "toLoad" ] ;
+if [ ! -f "$load_data_lock" ] && [ -d "toLoad" ] ;
 then
     echo "Start data loading from toLoad folder"
     pwd="dba"
@@ -46,11 +46,13 @@ then
     if [ "$DBA_PASSWORD" ]; then pwd="$DBA_PASSWORD" ; fi
     if [ "$DEFAULT_GRAPH" ]; then graph="$DEFAULT_GRAPH" ; fi
 
-    echo "ld_dir('toLoad', '*', '$graph');" >> $load_data_sql
-    echo "rdf_loader_run();" >> $load_data_sql
-    echo "exec('checkpoint');" >> $load_data_sql
-    echo "WAIT_FOR_CHILDREN; " >> $load_data_sql
-    echo "$(cat $load_data_sql)"
+    cat >> "${load_data_sql}" << EOF
+    ld_dir('toLoad', '*', '${graph}');
+    rdf_loader_run();
+    exec('checkpoint');
+    WAIT_FOR_CHILDREN;
+EOF
+    cat $load_data_sql
 
     virtuoso-t +wait && isql-v -U dba -P "$pwd" < $load_data_sql
 
@@ -65,7 +67,7 @@ load_on_virtuoso(){
   local sql_file="$SETTINGS_DIR/load_${label}.sql"
   local lock_file="$SETTINGS_DIR/.${label}_loaded"
 
-  if [ ! -f ".${label}_loaded" -a -d  "${path}" ];
+  if [ ! -f ".${label}_loaded" ] && [ -d  "${path}" ];
   then
     pwd="dba" ;
     echo "Loading OntoPiA ${label}"
@@ -82,7 +84,7 @@ EOF
     virtuoso-t +wait && isql-v -U dba -P "$pwd" < "/${sql_file}"
 
     pkill -f virtuoso-t
-    echo "$(date +%Y-%m-%dT%H:%M:%S%:z)" > "${lock_file}"
+    date +%Y-%m-%dT%H:%M:%S%:z > "${lock_file}"
 
   fi
 

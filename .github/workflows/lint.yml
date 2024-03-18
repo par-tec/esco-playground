@@ -28,7 +28,8 @@ jobs:
           id
           git config --global --add safe.directory $PWD
           pre-commit install
-          pre-commit run -a
+          # Skill checks requiring docker.
+          SKIP=shellcheck pre-commit run -a
 
       # Store (expiring) logs on failure.
       # Retrieve artifacts via `gh run download`.
