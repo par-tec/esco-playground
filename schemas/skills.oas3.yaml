@@ -34,6 +34,18 @@ components:
       type: "string"
       maxLength: 100
       example: "Programming"
+    SkillType:
+      description: |-
+        The type of skill, according to the ESCO model.
+        The skill type is an URI, and it is expected to be
+        one of the following:
+        - http://data.europa.eu/esco/skill-type/knowledge
+        - http://data.europa.eu/esco/skill-type/skills
+      type: "string"
+      enum:
+        - "knowledge"
+        - "skill"
+      example: "knowledge"
     Skill:
       description: |-
         A skill schema according to the ESCO model.
@@ -80,16 +92,7 @@ components:
           items:
             $ref: "#/components/schemas/SkillLabel"
         skillType:
-          description: |-
-            The type of skill, according to the ESCO model.
-            The skill type is an URI, and it is expected to be
-            one of the following:
-            - http://data.europa.eu/esco/skill-type/knowledge
-            - http://data.europa.eu/esco/skill-type/skills
-          type: "string"
-          enum:
-            - "knowledge"
-            - "skill"
+          $ref: "#/components/schemas/SkillType"
       example:
         uri: "esco:ccd0a1d9-afda-43d9-b901-96344886e14d"
         label: "Programming"
