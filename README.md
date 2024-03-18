@@ -22,18 +22,24 @@ pip install esco[dev]
 
 ## Usage
 
-The simplest way to use this module is via the `LocalDB` class:
+The simplest way to use this module is via the `LocalDB` class,
+that wraps the ESCO dataset embedded in the package via the [json files](esco/esco.json.gz):
 
 ```python
 from esco import LocalDB
 
 esco_data = LocalDB()
 
-# Get a skill by its URI.
+# Get a skill by its cURIe.
 skill = esco_data.get("esco:b0096dc5-2e2d-4bc1-8172-05bf486c3968")
 
 # Search a list of skill using labels.
 skills = esco_data.search_products({"python", "java"})
+
+# Further queries can be done using the embedded dataframe.
+esco_data.skills.__class__ == pandas.core.frame.DataFrame
+
+esco_data.skills[esco_data.skills.label == "SQL Server"]
 ```
 
 To use extra features such as text to skill extraction
@@ -77,8 +83,6 @@ cv = cv_recognizer(text)
 cv_skills = cv.skills()
 ```
 
-
-
 If you have a sparql server with the ESCO dataset, you can use the `SparqlClient`:
 
 ```python
@@ -100,7 +104,6 @@ WHERE {
 skills = client.query(query)
 ```
 
-
 ## Development
 
 The jupyter notebook should work without the ESCO dataset,
@@ -110,11 +113,15 @@ To regenerate the NER model, you need the ESCO dataset in turtle format.
 
 :warning: before using this repository, you need to:
 
-1. download the ESCO 1.1.1 database in text/turtle format  `ESCO dataset - v1.1.1 - classification -  - ttl.zip` from the [ESCO portal](https://ec.europa.eu/esco/portal) and unzip the `.ttl` file under the`vocabularies` folder.
+1. download the ESCO 1.1.1 database in text/turtle format
+`ESCO dataset - v1.1.1 - classification -  - ttl.zip`
+from the [ESCO portal](https://ec.europa.eu/esco/portal)
+and unzip the `.ttl` file under the [`vocabularies`](vocabularies/) folder.
 
 1. execute the sparql server that will be used to serve the ESCO dataset,
    and wait for the server to spin up and load the ~700MB dataset.
-   :warning: It will take a couple of minutes, so you need to wait for the server to be ready.
+   :warning: It will take a couple of minutes,
+   so you need to wait for the server to be ready.
 
    ```bash
    docker-compose up -d virtuoso
@@ -124,13 +131,6 @@ To regenerate the NER model, you need the ESCO dataset in turtle format.
 
    ```bash
    tox -e py3
-   ```
-
-1. run the API
-
-   ```bash
-   connexion run api/openapi.yaml &
-   xdg-open http://localhost:5000/esco/v0.0.1/ui/
    ```
 
 ## Regenerate the model
@@ -162,13 +162,13 @@ Please, see [CONTRIBUTING.md](CONTRIBUTING.md) for more details on:
 You can create new projects starting from this repository,
 so you can use a consistent CI and checks for different projects.
 
-Besides all the explanations in the [CONTRIBUTING.md](CONTRIBUTING.md) file, you can use the docker-compose file
+Besides all the explanations in the [CONTRIBUTING.md](CONTRIBUTING.md) file,
+you can use the docker-compose file
 (e.g. if you prefer to use docker instead of installing the tools locally)
 
 ```bash
 docker-compose run pre-commit
 ```
-
 
 ## Using on GCP
 
