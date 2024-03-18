@@ -48,9 +48,9 @@ jobs:
   publish:
     # Publish to PyPI. See https://docs.pypi.org/trusted-publishers/using-a-publisher/
     timeout-minutes: 5
-    needs: test-job
+    needs: test
     runs-on: ubuntu-latest
-    container: python:3.10-slim
+    container: python:3.11-slim
     # Publish to the release environment.
     #   See https://docs.github.com/en/actions/deployment/targeting-different-environments/using-environments-for-deployment
     environment: release
