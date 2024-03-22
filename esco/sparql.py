@@ -36,6 +36,7 @@ class SparqlClient:
             "prov": "http://www.w3.org/ns/prov#",
             "foaf": "http://xmlns.com/foaf/0.1/",
             "qdr": "http://data.europa.eu/esco/qdr#",
+            "": "http://data.europa.eu/esco/skill/",
         }
 
     def query(self, query):
@@ -59,23 +60,35 @@ class SparqlClient:
         res = self.query(
             """
 
-            SELECT DISTINCT * WHERE {
+            SELECT DISTINCT
+
+                ?uri
+                ?label
+                ?category
+                ?skillType
+                ?altLabel
+                ?description
+                (GROUP_CONCAT(DISTINCT ?narrower; separator=", ") AS ?narrowers)
+
+            WHERE {
 
             VALUES ?category { """
             + categories
             + """ }
 
             ?uri a esco:Skill ;
-                skos:prefLabel ?label ;
                 skos:broaderTransitive* ?category  ;
                 esco:skillType _:skillType ;
-                iso-thes:status "released"
+                iso-thes:status "released" ;
+                skos:prefLabel ?label . FILTER (lang(?label) = "en")
             .
 
-            _:skillType skos:prefLabel ?skillType .
+            _:skillType skos:prefLabel ?skillType . FILTER(lang(?skillType) = "en") .
 
             OPTIONAL {
-                ?uri skos:altLabel ?altLabel .
+                ?uri skos:altLabel ?altLabel . FILTER(lang(?altLabel) = "en")
+            }
+            OPTIONAL {
                 ?uri dct:description _:description .
 
                 _:description
@@ -84,12 +97,15 @@ class SparqlClient:
                 .
             }
 
-            FILTER (lang(?label) = "en") .
-            FILTER(lang(?altLabel) = "en")
-            FILTER(lang(?skillType) = "en")
-                            }"""
+            OPTIONAL {
+                ?uri skos:narrower ?narrower .
+            }
+        }"""
         )
         df = pd.read_csv(io.StringIO(res.decode()))
+        df["narrowers"] = df["narrowers"].apply(
+            lambda x: x.split(", ") if pd.notna(x) else []
+        )
         return df
 
     def infer_skills_from_skill(self, skill_uri: str):

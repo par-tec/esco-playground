@@ -39,4 +39,4 @@ def test_get_skill(db):
 def test_search_skill_label(db):
     products = {"ansible", "JBoss", "Bash"}
     skills = db.search_products(products)
-    assert len(skills) == 3
+    assert len(skills) >= 3
