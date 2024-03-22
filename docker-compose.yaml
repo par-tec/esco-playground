@@ -17,7 +17,7 @@ services:
     working_dir: /code
     volumes:
       - .:/code
-    entrypoint: [tox, -e, py3]
+    entrypoint: [tox]
     depends_on:
       - qdrant
       - virtuoso

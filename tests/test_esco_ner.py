@@ -35,8 +35,8 @@ def esco_db(tmpdir):
 @pytest.fixture(
     scope="module",
     params=[
-        "en_core_web_trf_esco_ner",
-        (TESTDIR / ".." / "generated" / "en_core_web_trf_esco_ner").as_posix(),
+        #        "en_core_web_trf_esco_ner",
+        Path(TESTDIR / ".." / "generated" / "en_core_web_trf_esco_ner").as_posix(),
     ],
 )
 def esco_ner(esco_db, request):
