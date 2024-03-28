@@ -130,7 +130,10 @@ class LocalDB:
 
     def get(self, uri_or_curie: str):
         uri = from_curie(uri_or_curie)
-        return self.skills[self.skills.index == uri].iloc[0].to_dict()
+        try:
+            return self.skills[self.skills.index == uri].iloc[0].to_dict()
+        except IndexError:
+            return None
 
     def search_products(self, products: List[str]) -> List[dict]:
         """

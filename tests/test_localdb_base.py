@@ -30,6 +30,10 @@ def test_get_label(db):
     )
 
 
+def test_get_missing_return_none(db):
+    assert db.get("esco:nonexistent") is None
+
+
 def test_get_skill(db):
     skill = db.get("esco:b0096dc5-2e2d-4bc1-8172-05bf486c3968")
     assert skill["description"]
