@@ -5,22 +5,21 @@
 #
 version: "3.9"
 services:
-  dev:
+  dev: &base
     build: .
+    depends_on:
+      - qdrant
+      - virtuoso
     working_dir: /code
     volumes:
       - .:/code
     entrypoint: [sleep, infinity]
-
   test:
-    build: .
-    working_dir: /code
-    volumes:
-      - .:/code
+    <<: *base
     entrypoint: [tox]
-    depends_on:
-      - qdrant
-      - virtuoso
+  model:
+    <<: *base
+    entrypoint: [tox, -e, model]
   qdrant:
     image: qdrant/qdrant:latest
     ports:
