@@ -52,6 +52,7 @@ class SparqlClient:
             "http://data.europa.eu/esco/isced-f/06",
             "http://data.europa.eu/esco/skill/243eb885-07c7-4b77-ab9c-827551d83dc4",
             "http://data.europa.eu/esco/skill/b590d4e5-7c62-4b4a-abc2-c270b482e0ce",
+            "http://data.europa.eu/esco/skill/bec4359e-cb92-468f-a997-8fb28e32fba9",
         ]
 
         categories = "\n".join([f"<{uri}>" for uri in categories])
