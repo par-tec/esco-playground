@@ -7,13 +7,13 @@ and to test different approaches to extract skills from text.
 
 ## Installation
 
-To install the package, you can use pip:
+To install the development version of the package, you can use pip:
 
 ```bash
 pip install git+https://github.com/par-tec/esco-playground
 ```
 
-Optional dependencies are:
+Optional dependencies can be installed via:
 
 ```bash
 pip install esco[langchain]
@@ -128,9 +128,16 @@ and unzip the `.ttl` file under the [`vocabularies`](vocabularies/) folder.
    ```
 
 1. run the tests
+   using tox
 
    ```bash
    tox -e py3
+   ```
+
+   or using the docker-compose file
+
+   ```bash
+   docker compose up test
    ```
 
 ## Regenerate the model
