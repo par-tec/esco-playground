@@ -40,7 +40,10 @@ def test_get_skill(db):
     assert skill["skillType"] == "skill"
 
 
-def test_search_skill_label(db):
-    products = {"ansible", "JBoss", "Bash"}
+@pytest.mark.parametrize(
+    "products,expected_results",
+    [({"ansible", "JBoss", "Bash"}, 3), ({"agile", "scrum", "kanban"}, 1)],
+)
+def test_search_skill_label(db, products, expected_results):
     skills = db.search_products(products)
-    assert len(skills) >= 3
+    assert len(skills) >= expected_results
