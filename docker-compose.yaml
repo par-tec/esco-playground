@@ -3,7 +3,6 @@
 #
 # $ docker-compose up -d virtuoso
 #
-version: "3.9"
 services:
   dev: &base
     build: .
@@ -35,13 +34,15 @@ services:
       - "8890:80/tcp"
   virtuoso:
     # user: "1000:1000"
-    image: tenforce/virtuoso
+    # user: root
+    image: docker.io/openlink/virtuoso-opensource-7:7.2.12-alpine
     ports:
     - "18890:8890/tcp"
+    environment:
+      - VIRTUOSO_INI_FILE=/virtuoso.ini
+      - DBA_PASSWORD=
     volumes:
     - .:/code
-    - ./vocabularies:/usr/local/virtuoso-opensource/share/virtuoso/vad/vocabularies
-    - ./ontologies:/usr/local/virtuoso-opensource/share/virtuoso/vad/ontologies
-    - ./schemas:/usr/local/virtuoso-opensource/share/virtuoso/vad/schemas
-    - ./sparql/virtuoso.sh:/virtuoso.sh
-    - ./sparql/virtuoso.ini:/conf/virtuoso.ini
+    - ./data:/database
+    - ./vocabularies:/initdb.d/
+    - ./sparql/virtuoso.ini:/virtuoso.ini
