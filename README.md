@@ -139,7 +139,7 @@ To regenerate the model, you need to setup the ESCO dataset as explained above
 and then run the following command:
 
 ```bash
-tox -e build-model
+tox -e model   
 ```
 
 To build and upload the model, provided you did `huggingface-cli login`:
