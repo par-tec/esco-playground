@@ -36,7 +36,7 @@ def test_can_load_occupations_from_sparql(sparql):
 def test_if_skills_exists_in_json(sparql):
     assert sparql
     ret = sparql.load_skills()
-    categories = categories or [  # Defaults to ICT professionals and technicians.
+    categories = [  # Defaults to ICT professionals and technicians.
         "http://data.europa.eu/esco/isco/C25",
         "http://data.europa.eu/esco/isco/C35",
     ]
@@ -60,16 +60,18 @@ def test_if_skills_exists_in_json(sparql):
 
     # Get current skill labels associated
     #  with the occupation.
-    ?s iso-thes:status "released" .
-
-
+    ?s iso-thes:status "released" ;
+    skos:prefLabel ?label
+    .
 
     FILTER (lang(?label) = "en")
                     }"""
     )
     df = pd.read_csv(io.StringIO(res.decode()))
 
+    # verifica se il df non è vuoto
+
     for skill in df["s"]:
-        assert skill in ret.uri
+        assert skill in ret.index
 
     raise NotImplementedError
