@@ -43,7 +43,7 @@ def test_if_skills_exists_in_json(sparql):
 
     categories = "\n".join([f"<{uri}>" for uri in categories])
 
-    res = sparql.query(
+    query_all_skills = (
         """
 
     SELECT DISTINCT ?s ?label WHERE {
@@ -67,11 +67,44 @@ def test_if_skills_exists_in_json(sparql):
     FILTER (lang(?label) = "en")
                     }"""
     )
+
+    query_essential_skills = (
+        """
+
+    SELECT DISTINCT ?s ?label WHERE {
+
+    VALUES ?category { """
+        + categories
+        + """ }
+
+    ?uri a esco:Occupation ;
+        esco:relatedEssentialSkill ?s ;
+        skos:broaderTransitive* ?category  ;
+        iso-thes:status "released"
+    .
+
+    # Get current skill labels associated
+    #  with the occupation.
+    ?s iso-thes:status "released" ;
+    skos:prefLabel ?label
+    .
+
+    FILTER (lang(?label) = "en")
+                    }"""
+    )
+
+    res = sparql.query(query_essential_skills)
     df = pd.read_csv(io.StringIO(res.decode()))
 
-    # verifica se il df non è vuoto
+    all_ict_occupations_skills = set(df["s"].values)
 
-    for skill in df["s"]:
-        assert skill in ret.index
+    isco_essential_skills = set(sparql.load_isco().s.values)
 
-    raise NotImplementedError
+    missing_essential_skills = all_ict_occupations_skills - isco_essential_skills
+
+    # verifica se il df non è
+    missing_skills = all_ict_occupations_skills - set(ret.index)
+    assert not missing_essential_skills, [
+        df[df.s == x].label for x in missing_essential_skills
+    ]
+    assert not missing_skills, [df[df.s == x].label for x in missing_skills]
