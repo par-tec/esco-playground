@@ -46,36 +46,6 @@ class SparqlClient:
         self.client.setReturnFormat(CSV)
         results = self.client.query().convert()
         return results
-    
-    #add specific query for Eskill
-    query_essential_skills = (
-        """
-    SELECT DISTINCT 
-            ?uri
-            ?label
-            ?category
-            ?skillType
-            ?altLabel
-            ?description
-            (GROUP_CONCAT(DISTINCT ?narrower; separator=", ") AS ?narrowers)
-         
-        WHERE {
-
-        VALUES ?category { """
-            + categories
-            + """ }
-
-        ?o a esco:Occupation ;
-            esco:relatedEssentialSkill ?uri;
-            skos:broaderTransitive* ?category;
-            iso-thes:status "released"
-        
-        ?s iso-thes:status "relased" ;
-            skos:prefLabel ?label
-        .
-        FILTER (lang(?label) = "en")
-        """
-    )
 
     def _load_skills_from_esco(self, categories=None):
         categories = categories or [
@@ -90,7 +60,7 @@ class SparqlClient:
         res = self.query(
             """
 
-            SELECT DISTINCT 
+            SELECT DISTINCT
                 ?uri
                 ?label
                 ?category
@@ -101,8 +71,8 @@ class SparqlClient:
             WHERE {
 
                     VALUES ?category { """
-                    + categories
-                    + """ }
+            + categories
+            + """ }
 
                     ?uri a esco:Skill ;
                         skos:prefLabel ?label ;
@@ -148,7 +118,7 @@ class SparqlClient:
         res = self.query(query)
         df = pd.read_csv(io.StringIO(res.decode()))
         return df.groupby(df.s).agg(lambda x: x.iloc[0]).to_dict(orient="index")
-    
+
     def load_isco(self, categories=None):
         categories = categories or [  # Defaults to ICT professionals and technicians.
             "http://data.europa.eu/esco/isco/C25",
@@ -211,7 +181,7 @@ class SparqlClient:
         res = self.query(
             """
 
-        SELECT DISTINCT 
+        SELECT DISTINCT
             ?uri
             ?label
             ?category
@@ -219,7 +189,7 @@ class SparqlClient:
             ?altLabel
             ?description
             (GROUP_CONCAT(DISTINCT ?narrower; separator=", ") AS ?narrowers)
-         
+
         WHERE {
 
         VALUES ?category { """
@@ -236,7 +206,7 @@ class SparqlClient:
         #  with the occupation.
         ?uri esco:skillType ?skillType ;
              iso-thes:status "released"
-             skos:prefLabel ?label . FILTER (lang(?label) = "en") 
+             skos:prefLabel ?label . FILTER (lang(?label) = "en")
             .
 
         # If an occupation lacks a description,
@@ -250,8 +220,8 @@ class SparqlClient:
             esco:language "en"^^xsd:language
             .
         }
-        
-      
+
+
                         }"""
         )
         df = pd.read_csv(io.StringIO(res.decode()))
@@ -260,9 +230,9 @@ class SparqlClient:
     def load_esco():
         skill1 = self._load_skills_from_isco()
         skill2 = self._load_skills_from_esco()
-        
-        skills = skill1.union(skill2)
-    
+
+        skill1.union(skill2)
+
     def load_skills(self):
         df = self.load_esco()
         return esco.util._aggregate_skills(df)
