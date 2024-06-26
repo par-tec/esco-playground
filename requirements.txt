@@ -13,3 +13,8 @@ spacy-transformers==1.3.4
 spacy-curated-transformers==0.2.1
 sparqlwrapper==2.0.0
 sentence-transformers==2.2.2
+
+# Don't download nvidia packages
+-f https://download.pytorch.org/whl/torch_stable.html
+torch==2.1.2+cpu
+torchvision==0.16.2+cpu
