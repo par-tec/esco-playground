@@ -230,13 +230,33 @@ class SparqlClient:
     def load_esco(self,categories=None):
         skill1_data = self._load_skills_from_isco()
         skill2_data = self._load_skills_from_esco()
-        #parse the datagram into a set
         
-        skill1 = eval(skill1_data)
-        skill2 = eval(skill2_data)
+        # Debugging statements to check the loaded data
+        print("Skill1 Data:", skill1_data)
+        print("Skill2 Data:", skill2_data)
         
-        skills = skill1.union(skill2)
-        return skills
+        # Assuming skill1_data and skill2_data are serialized DataFrames
+        if isinstance(skill1_data, str):
+            skill1 = pd.read_json(skill1_data) if skill1_data.strip() else pd.DataFrame()
+        else:
+            skill1 = skill1_data
+
+        if isinstance(skill2_data, str):
+            skill2 = pd.read_json(skill2_data) if skill2_data.strip() else pd.DataFrame()
+        else:
+            skill2 = skill2_data
+    
+        # Performing a union operation
+        if not skill1.empty and not skill2.empty:
+            skill1_set = set([tuple(row) for row in skill1.values])
+            skill2_set = set([tuple(row) for row in skill2.values])
+            union_set = skill1_set.union(skill2_set)
+            union_df = pd.DataFrame(list(union_set), columns=skill1.columns)
+        else:
+            union_df = pd.DataFrame()
+            
+        return union_df
+        
     
     def load_skills(self):
         df = self.load_esco()
