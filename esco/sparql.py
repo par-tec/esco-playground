@@ -246,6 +246,7 @@ class SparqlClient:
         else:
             skill2 = skill2_data
     
+    
         # Performing a union operation
         if not skill1.empty and not skill2.empty:
             skill1_set = set([tuple(row) for row in skill1.values])
