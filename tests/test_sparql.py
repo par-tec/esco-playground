@@ -6,7 +6,7 @@ import esco.sparql
 @pytest.fixture
 def sparql():
     yield esco.sparql.SparqlClient(
-        url="http://localhost:18890/sparql",
+        url="http://virutoso:8890/sparql",
     )
 
 
