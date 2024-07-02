@@ -231,9 +231,6 @@ class SparqlClient:
         skill1_data = self._load_skills_from_isco()
         skill2_data = self._load_skills_from_esco()
         
-        # Debugging statements to check the loaded data
-        print("Skill1 Data:", skill1_data)
-        print("Skill2 Data:", skill2_data)
         
         # Assuming skill1_data and skill2_data are serialized DataFrames
         if isinstance(skill1_data, str):
