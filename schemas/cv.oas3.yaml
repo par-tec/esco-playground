@@ -1,4 +1,11 @@
-cpmponents:
+openapi: 3.0.3
+info:
+  description: |-
+    Schemas with Job positions and CVs.
+version: "24.04"
+title: Job position and CV schemas
+paths: {}
+components:
   schemas:
     CV:
       description: A text-processed CV.
