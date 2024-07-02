@@ -1,0 +1,183 @@
+cpmponents:
+  schemas:
+    CV:
+      description: A text-processed CV.
+      type: object
+      additionalProperties: false
+      required:
+        - uuid
+        - text
+      properties:
+        uuid:
+          $ref: '#/components/schemas/Uuid'
+        text:
+          type: string
+          description: |-
+            The text-processed CV.
+            Do not impose a minLength on this field
+            because it may contain temporary messages
+            until the final classification.
+          example: |-
+            Write here your CV :).
+          maxLength: 8000
+        email:
+          type: string
+          format: email
+          description: |-
+            The email used to identify the CV.
+          example: >-
+            robipolli@gmail.com
+          maxLength: 64
+          minLength: 9
+        person:
+          $ref: '#/components/schemas/Person'
+        metadata:
+          type: object
+          maxProperties: 10
+        text_en:
+          type: string
+          description: The text-processed CV in English.
+          example: |-
+            Good morning, I hope everything is fine.
+          maxLength: 10000
+        group:
+          $ref: '#/components/schemas/CvGroup'
+        notes:
+          type: string
+          description: |-
+            The notes to be used for the classification.
+          example: |-
+            The candidate is a good fit for the role.
+    CVMetadata:
+      type: object
+      additionalProperties: false
+      properties:
+        content:
+          type: object
+          example:
+            esco:06358891-8424-43c5-891e-d40f226bef40:
+              count: 1
+              label: manage IT security compliances
+              score: 0.5718185515606247
+              uri: http://data.europa.eu/esco/skill/06358891-8424-43c5-891e-d40f226bef40
+            esco:097c6a36-f031-4d3e-b5c1-62d6ffcb430b:
+              count: 2
+              label: respect data protection principles
+              score: 0.4615486840698338
+              uri: http://data.europa.eu/esco/skill/097c6a36-f031-4d3e-b5c1-62d6ffcb430b
+            esco:0a30e5a8-60a8-4fda-9f89-8e9cee38da5a:
+              count: 1
+              label: use interface description language
+              score: 0.4433143000739083
+              uri: http://data.europa.eu/esco/skill/0a30e5a8-60a8-4fda-9f89-8e9cee38da5a
+    Job:
+      additionalProperties: false
+      description: A job positoion.
+      type: object
+      required:
+        - summary
+      x-jsonld-type: https://schema.org/JobPosting
+      x-jsonld-context:
+        "@vocab": "https://schema.org/"
+        valid_through: "validThrough"
+        summary: "title"
+        company: "hiringOrganization"
+        location: "jobLocation"
+        education_requirements: "educationRequirements"
+        experience_requirements: "experienceRequirements"
+        skills_requirements: "skills"
+      properties:
+        uuid:
+          $ref: '#/components/schemas/Uuid'
+        summary:
+          type: string
+          description: The summary of the job.
+          maxLength: 120
+          example: Cloud Engineer at Par-Tec S.p.A.
+        company:
+          $ref: '#/components/schemas/Company'
+        location:
+          type: string
+          description: The location of the job.
+          example: Milano, Roma e Pistoia
+          maxLength: 255
+        description:
+          type: string
+          description: |-
+            A long description of the job posting.
+          maxLength: 2048
+          minLength: 200
+        valid_through:
+          type: string
+          format: date
+          example: "2024-12-31"
+          description: The date after when the item is not valid. For example the end of an offer, salary period, or a period of opening hours.
+          nullable: true
+        education_requirements:
+          type: string
+          description: |-
+            The education required for the job.
+            It can use the EQF classification
+            https://europa.eu/europass/en/description-eight-eqf-levels
+            https://op.europa.eu/en/web/eu-vocabularies/dataset/-/resource?uri=http://publications.europa.eu/resource/dataset/european-qualification-framework
+          example: Master's degree in Computer Science
+          maxLength: 255
+        experience_requirements:
+          type: string
+          description: |-
+            The experience required for the job.
+          example: 3 years of experience in the field
+          maxLength: 255
+        skills_requirements:
+          description: |-
+            The skills required for the job.
+            Skills can be at different levels of the ESCO
+            taxonomy. The application will navigate through
+            ESCO to indentify matchings.
+
+            The example provides both Skills and Knowledges,
+            at different levels: e.g., the Python skill
+            is narrower than programming.
+
+            :warning: for now, labels are not mandatory and may differ
+            from the ESCO prefLabel: only the URI
+            is used to identify the skill.
+          type: array
+          minItems: 1
+          maxItems: 10
+          items:
+            $ref: '#/components/schemas/Skill'
+          example:
+          - label: deploy cloud resource
+            uri: esco:6195c5f7-a4fb-425d-a3dd-c4467c4471a3
+          - label: do cloud refactoring
+            uri: esco:38716afc-a93b-44ab-96cc-2ecf67edcf32
+          - label: manage cloud data and storage
+            uri: esco:d3286405-49f8-4e8a-8046-a4376b4e7963
+          - label: interpret technical text
+            uri: esco:85c11255-469f-41bd-a6d1-382bc4a87783
+          - label: python
+            uri: esco:ccd0a1d9-afda-43d9-b901-96344886e14d
+          - label: operating systems
+            uri: esco:f9a6f35b-01a7-40c9-8b61-b6ee46f97272
+        skills_optional:
+          type: array
+          minItems: 0
+          maxItems: 10
+          items:
+            $ref: 'skills.oas3.yaml#/components/schemas/Skill'
+          example:
+          - label: sql
+            uri: esco:598de5b0-5b58-4ea7-8058-a4bc4d18c742
+          - label: java
+            uri: esco:19a8293b-8e95-4de3-983f-77484079c389
+    Uuid:
+      type: string
+      format: uuid_
+      description: |-
+        The ID of the processed CV.
+        It is used to retrieve the processing results.
+
+        It allows for hex and uuid4 serializations.
+      maxLength: 64
+      minLength: 21
