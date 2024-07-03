@@ -208,10 +208,12 @@ class SparqlClient:
 
         # Get current skill labels associated
         #  with the occupation.
-        ?uri esco:skillType ?skillType ;
+        ?uri esco:skillType _:skillType ;
              iso-thes:status "released";
 
-             skos:prefLabel ?label . FILTER (lang(?label) = "en")
+             skos:prefLabel ?label . FILTER (lang(?label) = "en") .
+
+        _:skillType skos:prefLabel ?skillType . FILTER (lang(?skillType) = "en") .
 
 
         # If an occupation lacks a description,
