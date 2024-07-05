@@ -111,6 +111,7 @@ def main(esco, embeddings, ner, sparql):
         for k, p in m.items()
         for pattern in p
     ]
+    outdir.mkdir(exist_ok=True)
     (outdir / "esco_patterns.json").write_text(json.dumps(esco_p, indent=2))
     log.info("Loading the spacy model")
     nlp_e = spacy.load("en_core_web_trf")
