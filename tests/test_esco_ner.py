@@ -82,7 +82,7 @@ def test_esco_cv(esco_ner):
     Path(f"{cv_path.stem}-skills.yaml").write_text(yaml.dump(v_skills))
 
 
-@pytest.mark.parametrize("cv_path", DATADIR.glob("*-en.txt"))
+@pytest.mark.parametrize("cv_path", DATADIR.glob("*.txt"))
 def test_esco_all_cv(esco_ner, cv_path):
     cv = EscoCV(
         ner=esco_ner,
