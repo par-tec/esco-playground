@@ -126,7 +126,10 @@ class LocalDB:
 
     def get_label(self, uri_or_curie: str):
         uri = from_curie(uri_or_curie)
-        return self.skills[self.skills.index == uri]["label"].iloc[0]
+        try:
+            return self.skills[self.skills.index == uri]["label"].iloc[0]
+        except IndexError:
+            return IndexError(f"URI not found in ESCO {uri_or_curie}")
 
     def get(self, uri_or_curie: str):
         uri = from_curie(uri_or_curie)
