@@ -26,7 +26,7 @@ jobs:
       run: |
         echo UID=$(id -u) >> .env
         docker run --rm --user=$(id -u) \
-          -v $PWD:/code \
+          -v "${PWD}:/code" \
           -w /code \
           -e MAVEN_OPTS=" -ntp " \
           -e RUN_OWASP_DEPENDENCY_CHECK=false \
