@@ -1,9 +1,12 @@
 import io
+import logging
 
 import pandas as pd
 from SPARQLWrapper import CSV, SPARQLWrapper
 
 import esco.util
+
+log = logging.getLogger(__name__)
 
 
 #
@@ -48,7 +51,7 @@ class SparqlClient:
         results = self.client.query().convert()
         return results
 
-    def load_esco(self, categories=None):
+    def _load_skills_from_esco(self, categories=None) -> pd.DataFrame:
         categories = categories or [
             "http://data.europa.eu/esco/isced-f/06",
             "http://data.europa.eu/esco/skill/243eb885-07c7-4b77-ab9c-827551d83dc4",
@@ -62,7 +65,6 @@ class SparqlClient:
             """
 
             SELECT DISTINCT
-
                 ?uri
                 ?label
                 ?category
@@ -70,43 +72,34 @@ class SparqlClient:
                 ?altLabel
                 ?description
                 (GROUP_CONCAT(DISTINCT ?narrower; separator=", ") AS ?narrowers)
-
             WHERE {
 
-            VALUES ?category { """
+                    VALUES ?category { """
             + categories
             + """ }
 
-            ?uri a esco:Skill ;
-                skos:broaderTransitive* ?category  ;
-                esco:skillType _:skillType ;
-                iso-thes:status "released" ;
-                skos:prefLabel ?label . FILTER (lang(?label) = "en")
-            .
+                    ?uri a esco:Skill ;
+                        skos:prefLabel ?label ;
+                        skos:broaderTransitive* ?category  ;
+                        esco:skillType _:skillType ;
+                        iso-thes:status "released" ;
+                        skos:prefLabel ?label . FILTER (lang(?label) = "en")
+                    .
 
-            _:skillType skos:prefLabel ?skillType . FILTER(lang(?skillType) = "en") .
+                    _:skillType skos:prefLabel ?skillType . FILTER (lang(?skillType) = "en") .
 
-            OPTIONAL {
-                ?uri skos:altLabel ?altLabel . FILTER(lang(?altLabel) = "en")
-            }
-            OPTIONAL {
-                ?uri dct:description _:description .
+                    OPTIONAL {
+                        ?uri skos:altLabel ?altLabel . FILTER (lang(?altLabel) = "en") .
+                        ?uri dct:description _:description .
 
-                _:description
-                    esco:nodeLiteral ?description;
-                    esco:language "en"^^xsd:language
-                .
-            }
-
-            OPTIONAL {
-                ?uri skos:narrower ?narrower .
-            }
-        }"""
+                        _:description
+                            esco:nodeLiteral ?description;
+                            esco:language "en"^^xsd:language
+                        .
+                    }
+            }"""
         )
         df = pd.read_csv(io.StringIO(res.decode()))
-        df["narrowers"] = df["narrowers"].apply(
-            lambda x: x.split(", ") if pd.notna(x) else []
-        )
         return df
 
     def infer_skills_from_skill(self, skill_uri: str):
@@ -130,7 +123,7 @@ class SparqlClient:
         df = pd.read_csv(io.StringIO(res.decode()))
         return df.groupby(df.s).agg(lambda x: x.iloc[0]).to_dict(orient="index")
 
-    def load_isco(self, categories=None):
+    def load_isco(self, categories=None) -> pd.DataFrame:
         categories = categories or [  # Defaults to ICT professionals and technicians.
             "http://data.europa.eu/esco/isco/C25",
             "http://data.europa.eu/esco/isco/C35",
@@ -179,6 +172,86 @@ class SparqlClient:
                         }"""
         )
         df = pd.read_csv(io.StringIO(res.decode()))
+        return df
+
+    def _load_skills_from_isco(self, categories=None) -> pd.DataFrame:
+        categories = categories or [  # Defaults to ICT professionals and technicians.
+            "http://data.europa.eu/esco/isco/C25",
+            "http://data.europa.eu/esco/isco/C35",
+        ]
+
+        categories = "\n".join([f"<{uri}>" for uri in categories])
+
+        res = self.query(
+            """
+
+        SELECT DISTINCT
+            ?uri
+            ?label
+            ?occupationCategory as ?category
+            ?skillType
+            ?altLabel
+            ?description
+            (GROUP_CONCAT(DISTINCT ?narrower; separator=", ") AS ?narrowers)
+
+        WHERE {
+
+        VALUES ?occupationCategory { """
+            + categories
+            + """ }
+
+        ?o a esco:Occupation ;
+            esco:relatedEssentialSkill ?uri ;
+            skos:broaderTransitive* ?occupationCategory  ;
+            iso-thes:status "released"
+        .
+
+        # Get current skill labels associated
+        #  with the occupation.
+        ?uri esco:skillType _:skillType ;
+             iso-thes:status "released";
+
+             skos:prefLabel ?label . FILTER (lang(?label) = "en") .
+
+        _:skillType skos:prefLabel ?skillType . FILTER (lang(?skillType) = "en") .
+
+
+        # If an occupation lacks a description,
+        #   don't skip it.
+        OPTIONAL {
+            ?uri skos:altLabel ?altLabel . FILTER (lang(?altLabel) = "en")
+            ?uri dct:description _:description .
+
+            _:description
+            esco:nodeLiteral ?description;
+            esco:language "en"^^xsd:language
+            .
+        }
+
+
+                        }"""
+        )
+        df = pd.read_csv(io.StringIO(res.decode()))
+        return df
+
+    def load_esco(self, categories=None) -> pd.DataFrame:
+        skill1 = self._load_skills_from_isco()
+        log.info(f"Loaded {len(skill1)} skills from ISCO.")
+        if skill1.empty:
+            raise ValueError("No skills found from ISCO.")
+
+        skill2 = self._load_skills_from_esco()
+        log.info(f"Loaded {len(skill2)} skills from ESCO.")
+        if skill2.empty:
+            raise ValueError("No skills found from ESCO.")
+
+        # Performing a union operation
+        # between the two dataframes.
+        df = pd.concat([skill1, skill2], ignore_index=True).drop_duplicates()
+
+        df["narrowers"] = df["narrowers"].apply(
+            lambda x: x.split(", ") if pd.notna(x) else []
+        )
         return df
 
     def load_skills(self):
