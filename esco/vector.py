@@ -71,8 +71,8 @@ class VectorDB:
         points = Batch(
             ids=[x.split("/")[-1] for x in skills.index.values],
             payloads=[
-                {"metadata": {"label": l, "uri": i}, "page_content": t}
-                for t, l, i in zip(
+                {"metadata": {"label": label, "uri": i}, "page_content": t}
+                for t, label, i in zip(
                     skills.text.values, skills.label.values, skills.index.values
                 )
             ],

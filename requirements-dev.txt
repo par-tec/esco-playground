@@ -14,7 +14,7 @@ jupyter
 # Further requirements file for running models
 langchain==0.1.0
 langchain-community==0.0.12
-qdrant-client==1.7.0
+qdrant-client==1.10.1
 nltk==3.8.1
 tiktoken==0.5.2
 

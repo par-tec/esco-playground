@@ -23,8 +23,8 @@ models = {
     },
 }
 documents = [
-    Document(page_content=t, metadata={"label": l, "uri": i})
-    for t, l, i in zip(skills.text.values, skills.label.values, skills.index.values)
+    Document(page_content=t, metadata={"label": label, "uri": i})
+    for t, label, i in zip(skills.text.values, skills.label.values, skills.index.values)
 ]
 
 
