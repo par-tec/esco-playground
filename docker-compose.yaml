@@ -15,6 +15,7 @@ services:
     entrypoint: [sleep, infinity]
   test:
     <<: *base
+    user: root
     entrypoint: [tox]
   model:
     <<: *base
