@@ -1,0 +1,40 @@
+#
+# This file contains the test data for the `ner-skills` test case.
+# Every block in this YAML file contains:
+# - `text`: the text to be analyzed by the NER model.
+# - `skills`: the expected output of the NER model.
+#
+tests:
+- text: |-
+    Full-Stack Developer
+
+    Contributing to the Italian API guidelines interfacing with European agencies
+    and standardization organizations (IETF, W3C).
+    Principal technologies: OpenAPI, REST, HTTP
+
+  skills:
+    http://data.europa.eu/esco/skill/37a438f3-e28c-4e32-83c5-299f047c1dc9:
+      count: 1
+      label: apply tools for content development
+      score: 0.349360244163332
+      uri: http://data.europa.eu/esco/skill/37a438f3-e28c-4e32-83c5-299f047c1dc9
+    http://data.europa.eu/esco/skill/6ad40ca3-dc34-4442-b23f-0b1b28936f56:
+      count: 1
+      label: maintain responsive design
+      score: 0.3178232349525057
+      uri: http://data.europa.eu/esco/skill/6ad40ca3-dc34-4442-b23f-0b1b28936f56
+    http://data.europa.eu/esco/skill/b0096dc5-2e2d-4bc1-8172-05bf486c3968:
+      count: 3
+      label: design application interfaces
+      score: 0.40949437672040334
+      source: ner
+    http://data.europa.eu/esco/skill/db36f7f1-5900-45bd-9ffb-f2b19c4362ac:
+      count: 1
+      label: support ICT system users
+      score: 0.33482087358807305
+      uri: http://data.europa.eu/esco/skill/db36f7f1-5900-45bd-9ffb-f2b19c4362ac
+    http://data.europa.eu/esco/skill/fd6d2981-3d4a-4ce2-9741-cfc98c5b74bd:
+      count: 1
+      label: implement data warehousing techniques
+      score: 0.31569651622582806
+      uri: http://data.europa.eu/esco/skill/fd6d2981-3d4a-4ce2-9741-cfc98c5b74bd
