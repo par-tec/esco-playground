@@ -39,9 +39,10 @@ tests:
       score: 0.31569651622582806
       uri: http://data.europa.eu/esco/skill/fd6d2981-3d4a-4ce2-9741-cfc98c5b74bd
 - text: |-
-    Relace this text with a new one from which esco-playground will extract
+    Replace this text with a new one from which esco-playground will extract
     a set of skills.
     Replace skill URIs with real skill ones from ESCO.
+    Moreover, add further items.
   skills:
     http://data.europa.eu/esco/skill/skill-one:
       label: skill one
