@@ -1,19 +1,13 @@
 import spacy
 from spacy.matcher import Matcher
 
-# Inizializza il modello di lingua di spacy
-nlp = spacy.load("en_core_web_sm")
-
-# Crea un matcher
+nlp = spacy.load("en_core_web_trf")
 matcher = Matcher(nlp.vocab)
-
-# Lista per salvare le frasi abbinate
 matched_sents = []
 
 """
 'assure customer satisfaction',
-'customer satisfaction guarantee', ***problema (vogliamo individuarlo???) secondo me non
-                                    *** è rilevante a tal punto di utilizzare un altro pattern
+'customer satisfaction guarantee',
 'ensure customer satisfaction',
 'guarantee customer satisfaction',
 'guaranteeing customer satisfaction',
