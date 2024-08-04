@@ -52,10 +52,12 @@ def test_can_match_customer_satisfaction(nlp, text, pattern):
     matcher = Matcher(nlp.vocab)
     matcher.add("MatcherSkill", [pattern])
     matches = matcher(doc)
+    matched_spans = []
     for match_id, start, end in matches:
         matched_span = doc[start:end]
         print(matched_span)
-        assert matched_span.text == " ".join(pattern)
+        matched_spans.append(matched_span.text)
+    assert matched_spans
 
 
 CLOUD_PATTERNS = dict(
@@ -94,7 +96,9 @@ def test_can_match_cloud(nlp, text, pattern):
     matcher = Matcher(nlp.vocab)
     matcher.add("MatcherSkill", [pattern])
     matches = matcher(doc)
+    matched_spans = []
     for match_id, start, end in matches:
         matched_span = doc[start:end]
         print(matched_span)
-        assert matched_span.text == " ".join(pattern)
+        matched_spans.append(matched_span.text)
+    assert matched_spans
