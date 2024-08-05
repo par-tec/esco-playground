@@ -17,7 +17,7 @@ CUSTOMER_SATISFACTION_TEXTS = [
 ]
 
 CUSTOMER_SATISFACTION_PATTERNS = dict(
-    pattern=[
+    pattern0=[
         {"LEMMA": {"IN": ["guarantee", "assure", "ensure", "provide", "promise"]}},
         {"POS": "DET", "OP": "?"},
         {"TEXT": "customer", "OP": "?"},
