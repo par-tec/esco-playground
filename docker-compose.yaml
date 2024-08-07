@@ -12,6 +12,7 @@ services:
     working_dir: /code
     volumes:
       - .:/code
+    cpus: "6.0"
     entrypoint: [sleep, infinity]
   test:
     <<: *base
