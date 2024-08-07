@@ -87,7 +87,9 @@ def get_verb_obj_from_label(label, nlp):
 
 
 @pytest.fixture
-def generate_pattern_from_label(nlp):
+def generate_pattern_from_label(nlp_with_label):
+    name, nlp = nlp_with_label
+
     def f(label):
         if len(label) <= 3:
             return [{"TEXT": label}]
@@ -118,7 +120,7 @@ def generate_pattern_from_label(nlp):
             },
         ]
 
-    yield f
+    yield name, f
 
 
 @pytest.fixture
@@ -142,16 +144,17 @@ def skills():
 
 
 @pytest.fixture(params=(None, "merge_noun_chunks"))
-def nlp(request):
+def nlp_with_label(request):
     n = spacy.load("en_core_web_trf")
     if request.param is not None:
         n.add_pipe(request.param)
     logging.warning(f"Using {n}")
-    yield n
+    yield request.param, n
 
 
 @pytest.fixture
 def nlp_e(skills, generate_pattern_from_label):
+    name, generate_pattern_from_label = generate_pattern_from_label
     nlp = spacy.load("en_core_web_trf")
     patterns = esco_matcher(skills, generate_pattern_from_label)
     assert patterns
@@ -164,16 +167,17 @@ def nlp_e(skills, generate_pattern_from_label):
             for pattern in p
         ]
     )
-    yield nlp
+    yield name, nlp
 
 
 @pytest.mark.parametrize(
     "text", ["Create networks in the cloud.", "Create cloud networks."]
 )
 def test_esco_matcher(nlp_e, text):
+    name, nlp_e = nlp_e
     doc = nlp_e(text)
     assert doc.ents
     assert len(doc.ents) > 0
     ent_labels = {ent.label_ for ent in doc.ents}
     assert "ESCO" in ent_labels
-    raise NotImplementedError
+    # raise NotImplementedError
