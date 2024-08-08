@@ -1,0 +1,64 @@
+tests:
+  - text: |
+      I am a Cloud Network Architect responsible for designing and implementing network solutions in the cloud.
+      I have expertise in creating secure and scalable cloud network architectures and work closely with cloud teams to ensure efficient network connectivity.
+      I have experience with cloud providers like AWS, Azure, and Google Cloud, and I am skilled in designing cloud networks, network security, and optimizing cloud network performance.
+    skills:
+      http://data.europa.eu/esco/skill/4da4587a-fd0b-4ca2-886c-c42a1562d432:
+        count: 1
+        label: design cloud networks
+        uri: http://data.europa.eu/esco/skill/4da4587a-fd0b-4ca2-886c-c42a1562d432
+      http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3:
+        count: 1
+        label: deploy cloud resource
+        uri: http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3
+      http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6:
+        count: 1
+        label: design cloud architecture
+        uri: http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6
+      http://data.europa.eu/esco/skill/94b2c46e-6338-4a1d-950a-d44eef018c53:
+        count: 1
+        label: collaborate with engineers
+        uri: http://data.europa.eu/esco/skill/94b2c46e-6338-4a1d-950a-d44eef018c53
+  - text: |
+      I am a Cloud Migration Specialist with a focus on planning and executing cloud migration strategies.
+      I work with organizations to assess their current infrastructure and plan a smooth transition to the cloud.
+      I have experience in cloud platform technologies, and my skills include designing cloud architectures, refactoring applications for the cloud, and ensuring minimal downtime during migration.
+    skills:
+      http://data.europa.eu/esco/skill/0a52bed5-fd29-45fb-aba6-e32bccfda1c1:
+        count: 1
+        label: plan migration to cloud
+        uri: http://data.europa.eu/esco/skill/0a52bed5-fd29-45fb-aba6-e32bccfda1c1
+      http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6:
+        count: 1
+        label: design cloud architecture
+        uri: http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6
+      http://data.europa.eu/esco/skill/38716afc-a93b-44ab-96cc-2ecf67edcf32:
+        count: 1
+        label: do cloud refactoring
+        uri: http://data.europa.eu/esco/skill/38716afc-a93b-44ab-96cc-2ecf67edcf32
+      http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
+  - text: |
+      I am a Cloud Database Engineer responsible for designing and managing databases hosted on cloud platforms.
+      My role involves creating efficient, scalable, and secure cloud databases that meet organizational needs.
+      I am skilled in cloud database design, implementing backup and recovery strategies, and optimizing database performance.
+    skills:
+      http://data.europa.eu/esco/skill/7e796b51-49d7-4e73-95af-2e7323763f15:
+        count: 1
+        label: design database in the cloud
+        uri: http://data.europa.eu/esco/skill/7e796b51-49d7-4e73-95af-2e7323763f15
+      http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3:
+        count: 1
+        label: deploy cloud resource
+        uri: http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3
+      http://data.europa.eu/esco/skill/ce8ae6ca-61d8-4174-b457-641de96cbff4:
+        count: 1
+        label: automate cloud tasks
+        uri: http://data.europa.eu/esco/skill/ce8ae6ca-61d8-4174-b457-641de96cbff4
+      http://data.europa.eu/esco/skill/7af6e9e8-1e11-4c0b-b7c6-ac96bbbbc674:
+        count: 1
+        label: coordinate engineering teams
+        uri: http://data.europa.eu/esco/skill/7af6e9e8-1e11-4c0b-b7c6-ac96bbbbc674
