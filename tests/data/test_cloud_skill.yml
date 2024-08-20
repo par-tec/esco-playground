@@ -62,3 +62,22 @@ tests:
         count: 1
         label: coordinate engineering teams
         uri: http://data.europa.eu/esco/skill/7af6e9e8-1e11-4c0b-b7c6-ac96bbbbc674
+  - text: |-
+      A Professional Cloud Developer builds scalable and highly available applications using Google-recommended tools and best practices. This individual has experience with cloud-native applications, developer tools, managed services, and next-generation databases. A Professional Cloud Developer also has proficiency with at least one general-purpose programming language and instruments their code to produce metrics, logs, and traces.
+
+      Design scalable, available, and reliable cloud-native applications
+      Build and test applications
+      Deploy applications
+      Integrate applications with Google Cloud services
+    skills: {}
+  - text: |-
+      Cloud engineer with over five years of experience in designing and implementing cloud systems looking to further my career. Effective team player with a desire to join a growing company using my programming, software and communication skills.
+      Manage full application stacks with Amazon cloud-based computing environments
+      Analyze metrics to identify bottlenecks and improve performance
+      Work alongside a team of engineers to develop cloud data solutions
+      Oversee the continuous integration of our server technologies
+      Work closely with business executives to develop cloud solutions that would lead to better client satisfaction
+      Assisted the Technology Director with large-scale projects, such as the overhaul of our cybersecurity systems
+      Trained new interns and part-time employees on the best practices and systems within the organization
+      Participated in the planning and implementation of the organization's AWS infrastructure
+    skills: {}
