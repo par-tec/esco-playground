@@ -173,25 +173,13 @@ def generate_pattern_from_label(named_nlp):
                 f"Compound is <2 or >3: {compound} for {label}. Use displacy or other tools to implement this case."
             )
             return default
-        label_hash = ""  # hashlib.md5(label.encode()).hexdigest()
         return [
-            {"RIGHT_ID": "base_" + label_hash, "RIGHT_ATTRS": {"LEMMA": obj.lemma_}},
+            {"RIGHT_ID": "base", "RIGHT_ATTRS": {"LEMMA": obj.lemma_}},
             {
-                "LEFT_ID": "base_" + label_hash,
-                "RIGHT_ID": "c1_" + label_hash,
+                "LEFT_ID": "base",
+                "RIGHT_ID": "compound",
                 "REL_OP": ">>",
                 "RIGHT_ATTRS": {"LEMMA": compound[1]},
-            },
-        ]
-
-        return [
-            {
-                "LEMMA": compound[0],
-                "DEP": "compound",
-            },
-            {
-                "LEMMA": obj.lemma_,
-                "DEP": {"IN": ["dobj", "pobj"]},
             },
         ]
 
