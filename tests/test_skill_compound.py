@@ -1,7 +1,9 @@
 import logging
+from pathlib import Path
 
 import pytest
 import spacy
+import yaml
 
 from esco import LocalDB, to_curie
 
@@ -240,6 +242,35 @@ def nlp_e(skills, generate_pattern_from_label):
             )  # Does it add the pattern to the matcher, or does it override the previous one?
 
     yield name, nlp, matcher
+
+
+DATADIR = Path(__file__).parent / "data"
+TESTFILE_YAML = DATADIR / "test_cloud_skill.yml"
+TESTCASES = yaml.safe_load(TESTFILE_YAML.read_text())["tests"]
+
+
+@pytest.mark.parametrize(
+    "text,expected_skills",
+    [(tc["text"], tc["skills"]) for tc in TESTCASES],
+)
+def test_esco_dependency_matcher(nlp_e, text, expected_skills):
+    name, nlp_e, matcher = nlp_e
+    doc = nlp_e(text)
+
+    actual_skills = find_skills(doc, matcher)
+    assert set(actual_skills) >= set(expected_skills)
+
+
+def find_skills(doc, matcher):
+    matches = matcher(doc)
+    matches = matcher(doc)
+    assert matches
+    skill_ids = set()
+    for match_id, token_ids in matches:
+        skill_id = doc.vocab.strings[match_id]
+        log.warning(f"Identified {skill_id} in {doc[min(token_ids):max(token_ids)+1]}")
+        skill_ids.add(skill_id)
+    return skill_ids
 
 
 @pytest.mark.parametrize(
