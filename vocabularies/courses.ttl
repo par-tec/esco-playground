@@ -1,0 +1,11 @@
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix ex: <http://example.org/courses/> .
+
+ex:course001 a schema:Course ;
+    rdfs:label "The Complete Oracle SQL Certification Course"@en ;
+    dcterms:description "This course provides a comprehensive guide to mastering Oracle SQL, covering everything from the basics to advanced topics."@en ;
+    schema:url <https://www.udemy.com/course/the-complete-oracle-sql-certification-course/> ;
+    ex:teachesSkill <http://data.europa.eu/esco/skill/598de5b0-5b58-4ea7-8058-a4bc4d18c742>,   # SQL
+                    <http://data.europa.eu/esco/skill/ab1e97ed-2319-4293-a8b7-072d2648822f> . # Database Management
