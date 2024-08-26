@@ -6,6 +6,8 @@
 services:
   dev: &base
     build: .
+    environment:
+      - PYTHONPATH=:/code:
     depends_on:
       - qdrant
       - virtuoso
@@ -41,7 +43,7 @@ services:
     - "18890:8890/tcp"
     environment:
       - VIRTUOSO_INI_FILE=/virtuoso.ini
-      - DBA_PASSWORD=
+      - DBA_PASSWORD=dba
     volumes:
     - .:/code
     - ./data:/database

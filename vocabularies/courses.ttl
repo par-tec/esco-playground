@@ -1,3 +1,13 @@
+
+#IMPORTANT FOR USAGE
+
+#WHEN YOU ADD A NEW COURSE IN courses.ttl, TO ADD IT TO VIRTUOSO EXECUTE THIS COMAND INSIDE VIRTUOSO CONTAINER:
+
+
+# ---->   isql -U dba -P dba <<< "DB.DBA.TTLP(file_to_string_output('/initdb.d/courses.ttl'), '', 'http://data.europa.eu/esco') ;"
+
+
+
 @prefix dcterms: <http://purl.org/dc/terms/> .
 @prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix schema: <http://schema.org/> .
@@ -7,5 +17,20 @@ ex:course001 a schema:Course ;
     rdfs:label "The Complete Oracle SQL Certification Course"@en ;
     dcterms:description "This course provides a comprehensive guide to mastering Oracle SQL, covering everything from the basics to advanced topics."@en ;
     schema:url <https://www.udemy.com/course/the-complete-oracle-sql-certification-course/> ;
-    ex:teachesSkill <http://data.europa.eu/esco/skill/598de5b0-5b58-4ea7-8058-a4bc4d18c742>,   # SQL
+    schema:teaches <http://data.europa.eu/esco/skill/598de5b0-5b58-4ea7-8058-a4bc4d18c742>,   # SQL
                     <http://data.europa.eu/esco/skill/ab1e97ed-2319-4293-a8b7-072d2648822f> . # Database Management
+
+
+ex:course002 a schema:Course ;
+    rdfs:label "Ansible for the Absolute Beginner - Hands-On - DevOps"@en ;
+    dcterms:description "This course introduces Ansible to the absolute beginner in DevOps. Practice Ansible with coding exercises in browser."@en ;
+    schema:url <https://www.udemy.com/course/learn-ansible/> ;
+    schema:teaches <http://data.europa.eu/esco/skill/6f8a40d6-f9ce-43ec-a72f-d4213a53f3ed>
+.
+
+ex:course003 a schema:Course ;
+    rdfs:label "Mastering Data Modeling Fundamentals"@en ;
+    dcterms:description "Entity-Relationship Techniques and Best Practices"@en ;
+    schema:url <https://www.udemy.com/course/mastering-data-modeling-fundamentals/> ;
+    schema:teaches <http://data.europa.eu/esco/skill/fbafa41f-cd05-4109-a649-8b44d306d779>
+.
