@@ -1,0 +1,89 @@
+
+#IMPORTANT FOR USAGE
+
+#WHEN YOU ADD A NEW COURSE IN courses.ttl, TO ADD IT TO VIRTUOSO EXECUTE THIS COMAND INSIDE VIRTUOSO CONTAINER:
+
+
+# ---->   isql -U dba -P dba <<< "DB.DBA.TTLP(file_to_string_output('/initdb.d/courses.ttl'), '', 'http://data.europa.eu/esco') ;"
+
+
+
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix schema: <http://schema.org/> .
+@prefix ex: <http://example.org/courses/> .
+
+ex:course001 a schema:Course ;
+    rdfs:label "The Complete Oracle SQL Certification Course"@en ;
+    dcterms:description "This course provides a comprehensive guide to mastering Oracle SQL, covering everything from the basics to advanced topics."@en ;
+    schema:url <https://www.udemy.com/course/the-complete-oracle-sql-certification-course/> ;
+    schema:teaches  <http://data.europa.eu/esco/skill/598de5b0-5b58-4ea7-8058-a4bc4d18c742>, # SQL
+                    <http://data.europa.eu/esco/skill/e2fb1ee4-fbf9-4690-b677-3e6ff7cfdc48>, # test ICT queries
+                    <http://data.europa.eu/esco/skill/de9f85ba-e77f-48fd-8c66-f5ebaf32d655>, # Oracle Relational Database
+                    <http://data.europa.eu/esco/skill/ec85cc63-4e24-4631-bf92-8789db2605c0>, # maintain database security
+                    <http://data.europa.eu/esco/skill/7369f779-4b71-4aab-8836-48b69c676eec>, # operate relational database management system
+                    <http://data.europa.eu/esco/skill/cb5cccc9-abe4-4b11-abe6-d27e5cd85fb1>  # manage standards for data exchange
+    .
+
+
+
+
+ex:course002 a schema:Course ;
+    rdfs:label "Ansible for the Absolute Beginner - Hands-On - DevOps"@en ;
+    dcterms:description "This course introduces Ansible to the absolute beginner in DevOps. Practice Ansible with coding exercises in browser."@en ;
+    schema:url <https://www.udemy.com/course/learn-ansible/> ;
+    schema:teaches <http://data.europa.eu/esco/skill/6f8a40d6-f9ce-43ec-a72f-d4213a53f3ed>, # Ansible
+                   <http://data.europa.eu/esco/skill/f0de4973-0a70-4644-8fd4-3a97080476f4>, # DevOps
+                   <http://data.europa.eu/esco/skill/ccb2e5f2-4279-48fd-9d85-a1db42ff1e13>, # project configuration management
+                   <http://data.europa.eu/esco/skill/9d2e926f-53d9-41f5-98f3-19dfaa687f3f>, # tools for software configuration management
+                   <http://data.europa.eu/esco/skill/ae4f0cc6-e0b9-47f5-bdca-2fc2e6316dce>, # manage ICT virtualisation environments
+                   <http://data.europa.eu/esco/skill/2b34764d-637c-48f5-aa70-31e15c965db6>  # operate open source software
+    .
+
+
+
+ex:course003 a schema:Course ;
+    rdfs:label "Mastering Data Modeling Fundamentals"@en ;
+    dcterms:description "Entity-Relationship Techniques and Best Practices"@en ;
+    schema:url <https://www.udemy.com/course/mastering-data-modeling-fundamentals/> ;
+    schema:teaches <http://data.europa.eu/esco/skill/fbafa41f-cd05-4109-a649-8b44d306d779>, # create data models
+                   <http://data.europa.eu/esco/skill/fecf8a0d-62c4-4e71-9b03-0f4fc2ad7bf5>, # data models
+                   <http://data.europa.eu/esco/skill/cb5cccc9-abe4-4b11-abe6-d27e5cd85fb1>, # manage standards for data exchange
+                   <http://data.europa.eu/esco/skill/07889c08-7220-47c8-96f7-6068fbea00dc>, # normalise data
+                   <http://data.europa.eu/esco/skill/9ff9db9d-d14b-426e-83f3-e7449af6c79f>, # manage data
+                   <http://data.europa.eu/esco/skill/fd6d2981-3d4a-4ce2-9741-cfc98c5b74bd>, # implement data warehousing techniques
+                   <http://data.europa.eu/esco/skill/4f5c1208-62fd-4e5a-a51e-306c06947e11>, # manage findable accessible interoperable and reusable data
+                   <http://data.europa.eu/esco/skill/46ec0033-3c71-415e-bcff-b065675ba2dc>, # integrate ICT data
+                   <http://data.europa.eu/esco/skill/a89a94fb-c417-49b4-a9a9-9a22e0f12697>, # manage data for legal matters
+                   <http://data.europa.eu/esco/skill/8369c2d6-c100-4cf6-bd83-9668d8678433>  # utilise machine learning
+.
+
+ex:course004 a schema:Course ;
+    rdfs:label "The Complete Cyber Security Course : Network Security!"@en ;
+    dcterms:description "Network Security, WiFi Security, WiFi Hackers, Firewalls, Wireshark, Secure Networking. + Password Managers"@en ;
+    schema:url <https://www.udemy.com/course/network-security-course/> ;
+    schema:teaches <http://data.europa.eu/esco/skill/2a3a96a3-709e-4d60-81f6-d247d6933f13>, # manage system security
+                   <http://data.europa.eu/esco/skill/8088750d-8388-4170-a76f-48354c469c44>, # cyber security
+                   <http://data.europa.eu/esco/skill/5898d99a-62a4-4e10-a2e3-0d815ce44248>, # cyber attack counter-measures
+                   <http://data.europa.eu/esco/skill/f4a85869-1855-45d5-a43c-7ee8cd451996>, # perform ICT security testing
+                   <http://data.europa.eu/esco/skill/06358891-8424-43c5-891e-d40f226bef40>, # manage IT security compliances
+                   <http://data.europa.eu/esco/skill/7814e88f-c133-4c3b-b27f-857afa145d42>, # ICT security legislation
+                   <http://data.europa.eu/esco/skill/dad7e408-162f-46a4-8567-db560e19e2fc>, # identify ICT system weaknesses
+                   <http://data.europa.eu/esco/skill/3ff589b7-68df-4ea5-ae41-b395bdb2378f>, # ICT security standards
+                   <http://data.europa.eu/esco/skill/ec85cc63-4e24-4631-bf92-8789db2605c0>, #mantain database security
+                   <http://data.europa.eu/esco/skill/501537a7-9d63-491d-ae02-09f04767ff1e> # attack vectors
+.
+
+ex:course005 a schema:Course ;
+    rdfs:label "Foundations of AI: From Problem-Solving to Machine Learning"@en ;
+    dcterms:description "The course bridges problem-solving, search algorithms, and knowledge representation, paving the way for Machine Learning"@en ;
+    schema:url <https://www.udemy.com/course/foundations-of-ai-from-problem-solving-to-machine-learning/> ;
+    schema:teaches <http://data.europa.eu/esco/skill/3a2d5b45-56e4-4f5a-a55a-4a4a65afdc43>, # machine learning
+                   <http://data.europa.eu/esco/skill/5608d5a0-6d5e-43b7-be37-616501729bb4>, # artificial neural networks
+                   <http://data.europa.eu/esco/skill/e465a154-93f7-4973-9ce1-31659fe16dd2>, # principles of artificial intelligence
+                   <http://data.europa.eu/esco/skill/ecc4552a-92c5-4222-b18d-faf5ac841080>, # deep learning
+                   <http://data.europa.eu/esco/skill/25f0ea33-b4a2-4f31-b7b4-7d20e827b180>, # data mining
+                   <http://data.europa.eu/esco/skill/8369c2d6-c100-4cf6-bd83-9668d8678433>, # utilise machine learning
+                   <http://data.europa.eu/esco/skill/4216e465-7baa-4884-a241-54b197bb9278>, # perform data mining
+                   <http://data.europa.eu/esco/skill/14832d87-2f2f-4895-b290-e4760ebae42a>  # solve technical problems
+.
