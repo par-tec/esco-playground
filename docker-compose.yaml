@@ -7,7 +7,7 @@ services:
   dev: &base
     build: .
     environment:
-      - PYTHONPATH=:/code:
+      - PYTHONPATH=:/code
     depends_on:
       - qdrant
       - virtuoso

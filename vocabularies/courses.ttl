@@ -18,13 +18,9 @@ ex:course001 a schema:Course ;
     dcterms:description "This course provides a comprehensive guide to mastering Oracle SQL, covering everything from the basics to advanced topics."@en ;
     schema:url <https://www.udemy.com/course/the-complete-oracle-sql-certification-course/> ;
     schema:teaches  <http://data.europa.eu/esco/skill/598de5b0-5b58-4ea7-8058-a4bc4d18c742>, # SQL
-                    <http://data.europa.eu/esco/skill/3af687cb-8c7a-46ea-a730-32dbaed040c6>, # Oracle Data Integrator
                     <http://data.europa.eu/esco/skill/e2fb1ee4-fbf9-4690-b677-3e6ff7cfdc48>, # test ICT queries
                     <http://data.europa.eu/esco/skill/de9f85ba-e77f-48fd-8c66-f5ebaf32d655>, # Oracle Relational Database
                     <http://data.europa.eu/esco/skill/ec85cc63-4e24-4631-bf92-8789db2605c0>, # maintain database security
-                    <http://data.europa.eu/esco/skill/70de94f5-9575-4edd-bca7-c797b023b9d6>, # Oracle Weblogic
-                    <http://data.europa.eu/esco/skill/8764d4b1-e069-44f2-8baa-fb1eee1850ec>, # Oracle Application Development Framework
-                    <http://data.europa.eu/esco/skill/23900e3d-06fa-424c-a5dc-c0ea42edde1e>, # Oracle Warehouse Builder
                     <http://data.europa.eu/esco/skill/7369f779-4b71-4aab-8836-48b69c676eec>, # operate relational database management system
                     <http://data.europa.eu/esco/skill/cb5cccc9-abe4-4b11-abe6-d27e5cd85fb1>  # manage standards for data exchange
     .
@@ -38,7 +34,6 @@ ex:course002 a schema:Course ;
     schema:url <https://www.udemy.com/course/learn-ansible/> ;
     schema:teaches <http://data.europa.eu/esco/skill/6f8a40d6-f9ce-43ec-a72f-d4213a53f3ed>, # Ansible
                    <http://data.europa.eu/esco/skill/f0de4973-0a70-4644-8fd4-3a97080476f4>, # DevOps
-                   <http://data.europa.eu/esco/skill/6b3afb82-c4ea-4f14-be54-a757fb762663>, # Vagrant
                    <http://data.europa.eu/esco/skill/ccb2e5f2-4279-48fd-9d85-a1db42ff1e13>, # project configuration management
                    <http://data.europa.eu/esco/skill/9d2e926f-53d9-41f5-98f3-19dfaa687f3f>, # tools for software configuration management
                    <http://data.europa.eu/esco/skill/ae4f0cc6-e0b9-47f5-bdca-2fc2e6316dce>, # manage ICT virtualisation environments
