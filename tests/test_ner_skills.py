@@ -67,7 +67,9 @@ def test_recognize_skills_in_text(testcase, esco_ner):
 
     # ... and the ner-skills should be a subset of the extracted skills too.
     extracted_ner_skills = {
-        k: v for k, v in extracted_skills.items() if v.get("source") == "ner"
+        k: {**v, "uri": k}
+        for k, v in extracted_skills.items()
+        if v.get("source") == "ner"
     }
     expected_ner_skills = {
         k: v for k, v in expected_skills.items() if v.get("source") == "ner"
