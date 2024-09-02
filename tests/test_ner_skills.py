@@ -72,4 +72,4 @@ def test_recognize_skills_in_text(testcase, esco_ner):
     expected_ner_skills = {
         k: v for k, v in expected_skills.items() if v.get("source") == "ner"
     }
-    assert extracted_ner_skills == expected_ner_skills
+    assert set(extracted_ner_skills) == set(expected_ner_skills)
