@@ -58,6 +58,7 @@ tests:
     Demonstrated expertise in implementing robust cybersecurity protocols, automating software updates,
     and leading successful data migration projects. With a strong focus on staff training and frontline support,
     I am committed to enhancing system efficiency, security, and user competency in my next role.
+
   skills:
     #
     # NOTE: this should not be recognized.
@@ -144,11 +145,6 @@ tests:
       label: mantain ICT system
       score: 0.48414556059345437
       uri: http://data.europa.eu/esco/skill/fbbcb9ab-4b95-4e57-a756-30d08b7da7a5
-    http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833:
-      count: 1
-      label: statistics
-      source: ner
-      uri: http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833
     http://data.europa.eu/esco/skill/20c920d4-7ff7-4676-ba61-3f04490d9416:
       count: 1
       label: keep up with the latest information systems solutions
@@ -172,6 +168,11 @@ tests:
     learning algorithms to support predictive analytics, anomaly detection, and natural language processing, enhancing decision-making processes
     for both internal teams and external clients.
   skills:
+    http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833:
+      count: 1
+      label: statistics
+      source: ner
+      uri: http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833
     http://data.europa.eu/esco/skill/598de5b0-5b58-4ea7-8058-a4bc4d18c742:
       count: 1
       label: SQL
@@ -216,11 +217,6 @@ tests:
       label: algorithms
       source: ner
       uri: http://data.europa.eu/esco/skill/54924a2c-daca-40d3-9716-4b38ceb04f38
-    http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833:
-      count: 4
-      label: statistics
-      source: ner
-      uri: http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833
     http://data.europa.eu/esco/skill/8369c2d6-c100-4cf6-bd83-9668d8678433:
       count: 3
       label: utilise machine learning
@@ -271,3 +267,110 @@ tests:
       label: monitor ICT research
       score: 0.41747665729037914
       uri: http://data.europa.eu/esco/skill/cc716f65-a0d0-4fba-95d9-64c358f697c0
+
+- text: |-
+    Data Scientist with 2 years of experience in statistical modeling and machine learning.
+    Proficient in Python and R for data analysis and model development, with some experience in SQL for managing relational databases.
+    Skilled in basic data visualization using tools like Tableau. Able to translate business needs into data-driven insights
+    and comfortable presenting findings to both technical and non-technical audiences.
+    Looking to further develop expertise in advanced machine learning techniques and big data analytics.
+  skills:
+    http://data.europa.eu/esco/skill/1e77e42a-181f-4b48-8e74-201ce50ffc29:
+      count: 2
+      label: interpret current data
+      uri: http://data.europa.eu/esco/skill/1e77e42a-181f-4b48-8e74-201ce50ffc29
+    http://data.europa.eu/esco/skill/238343b1-7b51-42b3-a9ed-cf24d3a236e7:
+      count: 1
+      label: identify digital competence gaps
+      uri: http://data.europa.eu/esco/skill/238343b1-7b51-42b3-a9ed-cf24d3a236e7
+    http://data.europa.eu/esco/skill/29fb0fb5-dfc4-4098-ac9b-3a712000f48f:
+      count: 1
+      label: manage database
+      uri: http://data.europa.eu/esco/skill/29fb0fb5-dfc4-4098-ac9b-3a712000f48f
+    http://data.europa.eu/esco/skill/382c11ed-20d5-4ae7-b60e-15fec527fa6c:
+      count: 1
+      label: apply statistical analysis techniques
+      uri: http://data.europa.eu/esco/skill/382c11ed-20d5-4ae7-b60e-15fec527fa6c
+    http://data.europa.eu/esco/skill/3e2ab38a-4519-4bef-b762-a8bf4836a775:
+      count: 1
+      label: perform dimensionality reduction
+      uri: http://data.europa.eu/esco/skill/3e2ab38a-4519-4bef-b762-a8bf4836a775
+    http://data.europa.eu/esco/skill/4134622c-c3fb-4a41-beb6-6d58ba5107db:
+      count: 1
+      label: demonstrate disciplinary expertise
+      uri: http://data.europa.eu/esco/skill/4134622c-c3fb-4a41-beb6-6d58ba5107db
+    http://data.europa.eu/esco/skill/4216e465-7baa-4884-a241-54b197bb9278:
+      count: 4
+      label: perform data mining
+      uri: http://data.europa.eu/esco/skill/4216e465-7baa-4884-a241-54b197bb9278
+    http://data.europa.eu/esco/skill/42fcf80d-7b45-40f3-bd2f-5411c4c0dfa0:
+      count: 1
+      label: identify technological needs
+      uri: http://data.europa.eu/esco/skill/42fcf80d-7b45-40f3-bd2f-5411c4c0dfa0
+    # http://data.europa.eu/esco/skill/46ec0033-3c71-415e-bcff-b065675ba2dc:
+    #   count: 1
+    #   label: integrate ICT data
+    #   uri: http://data.europa.eu/esco/skill/46ec0033-3c71-415e-bcff-b065675ba2dc
+    http://data.europa.eu/esco/skill/51586df8-1c46-4b47-8583-773cb63bf00b:
+      count: 1
+      label: R
+      source: ner
+      uri: http://data.europa.eu/esco/skill/51586df8-1c46-4b47-8583-773cb63bf00b
+    http://data.europa.eu/esco/skill/598de5b0-5b58-4ea7-8058-a4bc4d18c742:
+      count: 1
+      label: SQL
+      uri: http://data.europa.eu/esco/skill/598de5b0-5b58-4ea7-8058-a4bc4d18c742
+    http://data.europa.eu/esco/skill/5b9cde20-f1b9-4adc-bfb3-dbf70b14138d:
+      count: 1
+      label: use object-oriented programming
+      uri: http://data.europa.eu/esco/skill/5b9cde20-f1b9-4adc-bfb3-dbf70b14138d
+    http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833:
+      count: 4
+      label: statistics
+      source: ner
+      uri: http://data.europa.eu/esco/skill/7ee4c2ea-b349-4bd2-81a3-ec31475d4833
+    http://data.europa.eu/esco/skill/8316979b-df5a-4dc7-98ef-61ec6a10df84:
+      count: 1
+      label: conduct quantitative research
+      uri: http://data.europa.eu/esco/skill/8316979b-df5a-4dc7-98ef-61ec6a10df84
+    http://data.europa.eu/esco/skill/8369c2d6-c100-4cf6-bd83-9668d8678433:
+      count: 3
+      label: utilise machine learning
+      uri: http://data.europa.eu/esco/skill/8369c2d6-c100-4cf6-bd83-9668d8678433
+    http://data.europa.eu/esco/skill/ab1e97ed-2319-4293-a8b7-072d2648822f:
+      count: 1
+      label: database management systems
+      uri: http://data.europa.eu/esco/skill/ab1e97ed-2319-4293-a8b7-072d2648822f
+    http://data.europa.eu/esco/skill/c3c2420c-ce9a-4371-8eed-1db479c3a562:
+      count: 1
+      label: write scientific publications
+      uri: http://data.europa.eu/esco/skill/c3c2420c-ce9a-4371-8eed-1db479c3a562
+    http://data.europa.eu/esco/skill/c3e36d05-8ae8-447f-bb2b-6f9409f85389:
+      count: 2
+      label: deliver visual presentation of data
+      uri: http://data.europa.eu/esco/skill/c3e36d05-8ae8-447f-bb2b-6f9409f85389
+    http://data.europa.eu/esco/skill/c5e8abde-d2ba-4e8e-a65e-720b71180666:
+      count: 1
+      label: unstructured data
+      source: ner
+      uri: http://data.europa.eu/esco/skill/c5e8abde-d2ba-4e8e-a65e-720b71180666
+    http://data.europa.eu/esco/skill/ccd0a1d9-afda-43d9-b901-96344886e14d:
+      count: 1
+      label: Python (computer programming)
+      uri: http://data.europa.eu/esco/skill/ccd0a1d9-afda-43d9-b901-96344886e14d
+    http://data.europa.eu/esco/skill/d0f2f8a7-d935-4a6d-8e54-dcc3e5e2cbeb:
+      count: 1
+      label: present reports
+      uri: http://data.europa.eu/esco/skill/d0f2f8a7-d935-4a6d-8e54-dcc3e5e2cbeb
+    http://data.europa.eu/esco/skill/e2fb1ee4-fbf9-4690-b677-3e6ff7cfdc48:
+      count: 1
+      label: test ICT queries
+      uri: http://data.europa.eu/esco/skill/e2fb1ee4-fbf9-4690-b677-3e6ff7cfdc48
+    http://data.europa.eu/esco/skill/ec85cc63-4e24-4631-bf92-8789db2605c0:
+      count: 1
+      label: mantain database security
+      uri: http://data.europa.eu/esco/skill/ec85cc63-4e24-4631-bf92-8789db2605c0
+    http://data.europa.eu/esco/skill/fd6d2981-3d4a-4ce2-9741-cfc98c5b74bd:
+      count: 1
+      label: implement data warehousing techniques
+      uri: http://data.europa.eu/esco/skill/fd6d2981-3d4a-4ce2-9741-cfc98c5b74bd

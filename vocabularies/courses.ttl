@@ -87,3 +87,94 @@ ex:course005 a schema:Course ;
                    <http://data.europa.eu/esco/skill/4216e465-7baa-4884-a241-54b197bb9278>, # perform data mining
                    <http://data.europa.eu/esco/skill/14832d87-2f2f-4895-b290-e4760ebae42a>  # solve technical problems
 .
+
+
+ex:course006 a schema:Course ;
+    rdfs:label "Microsoft Power BI Desktop for Business Intelligence"@en ;
+    dcterms:description "Master Power BI Desktop for data prep, data analysis, data visualization &amp; dashboard design w/ top Power BI instructors!"@en ;
+    schema:url <https://www.udemy.com/course/microsoft-power-bi-up-running-with-power-bi-desktop/> ;
+    schema:teaches  <http://data.europa.eu/esco/skill/143769cb-b61e-47d8-a61e-eedfbec1016c>, # business intelliigence
+                    <http://data.europa.eu/esco/skill/ccdbd9bb-4faf-403c-a968-e8bf487f8a53>, # buainess ICT systems
+                    <http://data.europa.eu/esco/skill/9d0d89be-bffa-4393-b6f6-8d05bea49051>, # data extraction, trasnformation and loading tools
+                    <http://data.europa.eu/esco/skill/0f00f63f-3ab4-4057-b92f-500584b51757>, # Informatica PowerCenter
+                    <http://data.europa.eu/esco/skill/633a3637-2c6b-40ae-ac38-289eb2a62aa6>, # business analysis
+                    <http://data.europa.eu/esco/skill/772a9c72-abef-4333-9788-f4cb48ad8e08>, # identify software for warehouse management
+                    <http://data.europa.eu/esco/skill/b0a3bb25-a02f-43ed-ab1f-994fa66a424a>, # online analytical processing
+                    <http://data.europa.eu/esco/skill/f88002a8-6355-4d33-9496-285c166ff375>, # ICT power consumption
+                    <http://data.europa.eu/esco/skill/41bf7ede-fc84-4a57-8c89-b548d11b0ba1>  # manage business knowledge
+    .
+
+
+ex:course007 a schema:Course ;
+    rdfs:label "Deep Learning A-Z 2024: Neural Networks, AI & ChatGPT Prize"@en ;
+    dcterms:description "Learn to create Deep Learning models in Python from two Machine Learning, Data Science experts. Code templates included."@en ;
+    schema:url <https://www.udemy.com/course/deeplearning/> ;
+    schema:teaches  <http://data.europa.eu/esco/skill/5608d5a0-6d5e-43b7-be37-616501729bb4>, # artificial neural networks
+                    <http://data.europa.eu/esco/skill/ecc4552a-92c5-4222-b18d-faf5ac841080>, # deep learning
+                    <http://data.europa.eu/esco/skill/53780150-1581-4ae6-b435-34068c172caf>  #Vyper
+    .
+
+
+ex:course008 a schema:Course ;
+    rdfs:label "The Ultimate Hands-On Hadoop: Tame your Big Data!"@en ;
+    dcterms:description "Data Engineering and Hadoop tutorial with MapReduce, HDFS, Spark, Flink, Hive, HBase, MongoDB, Cassandra, Kafka + more!"@en ;
+    schema:url <https://www.udemy.com/course/the-ultimate-hands-on-hadoop-tame-your-big-data/> ;
+    schema:teaches  <http://data.europa.eu/esco/skill/e46291c7-52b9-4174-bd59-178884861038>, # Hadoop
+                    <http://data.europa.eu/esco/skill/97bd1c21-66b2-4b7e-ad0f-e3cda590e378>, # data analytics
+                    <http://data.europa.eu/esco/skill/a80fb090-63f4-4b05-83a5-2f090deb7757>, # manage data collection systems
+                    <http://data.europa.eu/esco/skill/9d0d89be-bffa-4393-b6f6-8d05bea49051>, # data extraction, trasnformation and loading tools
+                    <http://data.europa.eu/esco/skill/08b04e53-ed25-41a2-9f90-0b9cd939ba3d>, # manage research data
+                    <http://data.europa.eu/esco/skill/4f5c1208-62fd-4e5a-a51e-306c06947e11>, # manage findable accessible interoperable and reusable data
+                    <http://data.europa.eu/esco/skill/9ff9db9d-d14b-426e-83f3-e7449af6c79f>, # manage data
+                    <http://data.europa.eu/esco/skill/d3286405-49f8-4e8a-8046-a4376b4e7963>, # manage cloud data and storage
+                    <http://data.europa.eu/esco/skill/47a49cd6-097d-457a-9f7b-c290c14930d5>, # analyse big data
+                    <http://data.europa.eu/esco/skill/0c766ca3-9364-4203-916b-fed16e4814c1>  # gather data for forensic purposes
+    .
+
+
+ex:course008 a schema:Course ;
+    rdfs:label "Database Security for Cyber Professionals"@en ;
+    dcterms:description "Learn to Hack and Protect Relational Databases"@en ;
+    schema:url <https://www.udemy.com/course/database-security-for-cyber-professionals/> ;
+    schema:teaches  <http://data.europa.eu/esco/skill/ec85cc63-4e24-4631-bf92-8789db2605c0>, # maintain database security
+                    <http://data.europa.eu/esco/skill/8088750d-8388-4170-a76f-48354c469c44>, # cyber security
+                    <http://data.europa.eu/esco/skill/2a3a96a3-709e-4d60-81f6-d247d6933f13>, # manage system security
+                    <http://data.europa.eu/esco/skill/5da73370-f6b9-417d-a94c-09bf01f84aa2>, # use access control software
+                    <http://data.europa.eu/esco/skill/29fb0fb5-dfc4-4098-ac9b-3a712000f48f>, # manage database
+                    <http://data.europa.eu/esco/skill/7369f779-4b71-4aab-8836-48b69c676eec>, # operate relational database management system
+                    <http://data.europa.eu/esco/skill/5898d99a-62a4-4e10-a2e3-0d815ce44248>, # cyebr attack counter-measures
+                    <http://data.europa.eu/esco/skill/0df2e216-68ae-4952-b9dc-3c2f2bc04fe3>, # mantain database
+                    <http://data.europa.eu/esco/skill/64db87c7-2360-4e20-88d3-d222402e477c>, # write database documentation
+                    <http://data.europa.eu/esco/skill/e5beeff8-7c98-490a-ae2c-16fbb6a87305>  # manage keys for data protection
+    .
+
+
+ex:course009 a schema:Course ;
+    rdfs:label "Artificial Intelligence Ethics Certification"@en ;
+    dcterms:description "Understand the foundation of your moral code and how it can guide you through the most influential industry of our time."@en ;
+    schema:url <https://www.udemy.com/course/aiethics/> ;
+    schema:teaches  <http://data.europa.eu/esco/skill/cef5c0f8-1e40-4c09-b6a7-aa7811849e5d>, # ethics
+                    <http://data.europa.eu/esco/skill/e465a154-93f7-4973-9ce1-31659fe16dd2>, # principles of artificial intelligence
+                    <http://data.europa.eu/esco/skill/4134622c-c3fb-4a41-beb6-6d58ba5107db>, # demonstrate disciplinary expertise
+                    <http://data.europa.eu/esco/skill/833289fa-3646-4010-9d9e-93ba8c9ef2d8>, # apply research ethics and scientific integrity principles in research activities
+                    <http://data.europa.eu/esco/skill/3a2d5b45-56e4-4f5a-a55a-4a4a65afdc43>, # machine learning
+                    <http://data.europa.eu/esco/skill/7e1f9657-ab4e-407c-842f-b846197060e3>, # execute ICT audits
+                    <http://data.europa.eu/esco/skill/5608d5a0-6d5e-43b7-be37-616501729bb4>  # artificial neural networks
+    .
+
+
+ex:course010 a schema:Course ;
+    rdfs:label "Hands-On Data Engineering in Google Cloud Platform | Python"@en ;
+    dcterms:description "Non-stop hands-on videos on serverless and self-managed technology stacks within GCP for aspiring data professionals!"@en ;
+    schema:url <https://www.udemy.com/course/hands-on-data-engineering-in-google-cloud-platform-python/> ;
+    schema:teaches  <http://data.europa.eu/esco/skill/d3286405-49f8-4e8a-8046-a4376b4e7963>, # manage cloud data and storage
+                    <http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9>, # develop with cloud services
+                    <http://data.europa.eu/esco/skill/7e796b51-49d7-4e73-95af-2e7323763f15>, # design database in the cloud
+                    <http://data.europa.eu/esco/skill/9d0d89be-bffa-4393-b6f6-8d05bea49051>, # data extraction, trasnformation and loading tools
+                    <http://data.europa.eu/esco/skill/38716afc-a93b-44ab-96cc-2ecf67edcf32>, # do cloud refactoring
+                    <http://data.europa.eu/esco/skill/440d5784-52a5-4729-8b04-29f978bd896d>, # respond to incidents in cloud
+                    <http://data.europa.eu/esco/skill/0a52bed5-fd29-45fb-aba6-e32bccfda1c1>, # plan migration to cloud
+                    <http://data.europa.eu/esco/skill/bd14968e-e409-45af-b362-3495ed7b10e0>, # cloud technologies
+                    <http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3>, # deploy cloud resource
+                    <http://data.europa.eu/esco/skill/1c2978b8-bb0d-4249-9c23-877571a4dffa>  # cloud security and compliance
+    .
