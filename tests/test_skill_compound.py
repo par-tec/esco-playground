@@ -263,14 +263,15 @@ def test_esco_dependency_matcher(nlp_e, text, expected_skills):
 
 def find_skills(doc, matcher):
     matches = matcher(doc)
-    matches = matcher(doc)
     assert matches
-    skill_ids = set()
+    skills = dict()
     for match_id, token_ids in matches:
+        s, e = sorted(token_ids)
+        matched_span = doc[s:e]
         skill_id = doc.vocab.strings[match_id]
-        log.warning(f"Identified {skill_id} in {doc[min(token_ids):max(token_ids)+1]}")
-        skill_ids.add(skill_id)
-    return skill_ids
+        log.warning(f"Identified {skill_id} in {matched_span}")
+        skills[skill_id] = {"uri": skill_id, "text": matched_span}
+    return skills
 
 
 @pytest.mark.parametrize(
@@ -285,15 +286,8 @@ def test_esco_dependency_matcher_working(nlp_e, text):
     name, nlp_e, matcher = nlp_e
     doc = nlp_e(text)
 
-    matches = matcher(doc)
+    matches = find_skills(doc, matcher)
     assert matches
-    for match_id, token_ids in matches:
-        s, e = sorted(token_ids)
-        matched_span = doc[s:e]
-        skill_id = doc.vocab.strings[match_id]
-        log.info(f"Identified {skill_id} in {matched_span}")
-        assert matched_span.text in text
-    # raise NotImplementedError
 
 
 @pytest.mark.parametrize(
@@ -307,11 +301,5 @@ def test_esco_dependency_matcher_should_process_punctuation(nlp_e, text):
     name, nlp_e, matcher = nlp_e
     doc = nlp_e(text)
     assert matcher._patterns
-    matches = matcher(doc)
+    matches = find_skills(doc, matcher)
     assert matches
-    for match_id, token_ids in matches:
-        s, e = sorted(token_ids)
-        matched_span = doc[s:e]
-        skill_id = doc.vocab.strings[match_id]
-        log.info(f"Identified {skill_id} in {matched_span}")
-        assert matched_span.text in text
