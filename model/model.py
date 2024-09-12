@@ -12,7 +12,80 @@ from esco.sparql import SparqlClient
 log = logging.getLogger(__name__)
 
 
-def make_pattern(id_: str, kn: dict):
+class SkillMatcherFactory:
+    def __init__(self, model_name="en_core_web_trf") -> None:
+        self.nlp = spacy.load(model_name) if model_name else None
+
+    @staticmethod
+    def find_compound(token):
+        if token:
+            yield token.lemma_
+            if token.children:
+                for child in token.children:
+                    if child.dep_ == "compound":
+                        yield from SkillMatcherFactory.find_compound(child)
+
+    def find_root(self, doc):
+        for prefix in ("", "to "):
+            doc = self.nlp(prefix + doc.text)
+            for token in doc:
+                if token.dep_ == "ROOT" and token.pos_ == "VERB":
+                    return token
+
+    def find_obj(self, token):
+        for child in token.children:
+            if child.dep_ in ("prep"):
+                return self.find_obj(child)
+
+            if child.dep_ in ("dobj", "pobj", "nsubj"):
+                return child
+        return None
+
+    def f_compound(self, label):
+        default = [{"LOWER": label.lower()}]
+
+        if len(label) <= 3:
+            return [{"TEXT": label}]
+
+        if 1 < len(label.split()) < 3:
+            return [{"LOWER": x} for x in label.lower().split()]
+
+        if self.nlp is None:
+            # If no nlp is provided, return the label as is.
+            return default
+
+        # If the label is longer than 3 characters and has more than 3 words,
+        #   use spacy to generate the pattern.
+        logging.warning(f"Generating dependency pattern for: {label}")
+        doc = self.nlp(label)
+
+        verb = self.find_root(doc)
+        if verb is None:
+            return default
+
+        obj = self.find_obj(verb)
+        if obj is None:
+            return default
+
+        compound = list(SkillMatcherFactory.find_compound(obj))
+
+        if len(compound) != 2:
+            log.warning(
+                f"Compound is <2 or >3: {compound} for {label}. Use displacy or other tools to implement this case."
+            )
+            return default
+        return [
+            {"RIGHT_ID": "base", "RIGHT_ATTRS": {"LEMMA": obj.lemma_}},
+            {
+                "LEFT_ID": "base",
+                "RIGHT_ID": "compound",
+                "REL_OP": ">>",
+                "RIGHT_ATTRS": {"LEMMA": compound[1]},
+            },
+        ]
+
+
+def make_pattern(id_: str, kn: dict, skill_matcher_factory: SkillMatcherFactory):
     """Given an ESCO skill entry in the dataframe, create a pattern for the matcher.
 
     The entry has the following fields:
@@ -27,12 +100,7 @@ def make_pattern(id_: str, kn: dict):
     patterns = [pattern]
     altLabel = [kn["altLabel"]] if isinstance(kn["altLabel"], str) else kn["altLabel"]
     for alt in altLabel:
-        if len(alt) <= 3:
-            candidate = [{"TEXT": alt}]
-        elif 1 < len(alt.split()) < 4:
-            candidate = [{"LOWER": x} for x in alt.lower().split()]
-        else:
-            candidate = [{"LOWER": alt.lower()}]
+        candidate = skill_matcher_factory.f_compound(alt)
         if candidate not in patterns:
             patterns.append(candidate)
 
@@ -40,9 +108,14 @@ def make_pattern(id_: str, kn: dict):
 
 
 def esco_matcher(skills):
+    matcher_factory = {
+        "knowledge": SkillMatcherFactory(model_name=None),
+        "skill": SkillMatcherFactory(),
+    }
     # Create the patterns for the matcher
     return dict(
-        make_pattern(id_, kni) for id_, kni in skills.to_dict(orient="index").items()
+        make_pattern(id_, kni, matcher_factory[kni["skillType"]])
+        for id_, kni in skills.to_dict(orient="index").items()
     )
 
 
@@ -103,6 +176,7 @@ def main(esco, embeddings, ner, sparql):
     nlp_test = spacy.blank("en")
     m1 = spacy.matcher.Matcher(nlp_test.vocab, validate=True)
     for pid, patterns in m.items():
+        patterns = [p for p in patterns if not p[0].get("RIGHT_ID")]
         m1.add(pid, patterns)
 
     log.info("Generating the patterns")
@@ -115,10 +189,21 @@ def main(esco, embeddings, ner, sparql):
     (outdir / "esco_patterns.json").write_text(json.dumps(esco_p, indent=2))
     log.info("Loading the spacy model")
     nlp_e = spacy.load("en_core_web_trf")
+    log.info("Adding DEP patterns to the entity ruler")
     ruler = nlp_e.add_pipe("entity_ruler", after="ner")
-    ruler.add_patterns(esco_p)
+    ruler.add_patterns(esco_p)  # TODO: remove patterns with RIGHT_ID.
     log.info("Saving the model")
     nlp_e.to_disk(model_dir.as_posix())
+
+    # TODO: Store the DependencyMatcher patterns in the model.
+    dependency_matcher = spacy.matcher.DependencyMatcher(nlp_e.vocab)
+    for k, patterns in m.items():
+        for pattern in patterns:
+            if not pattern[0].get("RIGHT_ID"):
+                continue
+
+            dependency_matcher.add(k, [pattern])
+    # TODO: Can I store the dependency matcher in the nlp_e object?
 
     log.info("Update meta.json")
     meta = json.loads(meta_json.read_text())

@@ -112,36 +112,6 @@ def find_compound(token):
 def generate_pattern_from_label(named_nlp):
     name, nlp = named_nlp
 
-    def f_verb_obj(label):
-        if len(label) <= 3:
-            return [{"TEXT": label}]
-
-        if 1 < len(label.split()) < 3:
-            return [{"LOWER": x} for x in label.lower().split()]
-
-        if nlp is None:
-            # If no nlp is provided, return the label as is.
-            return [{"LOWER": label.lower()}]
-
-        # If the label is longer than 3 characters and has more than 3 words,
-        #   use spacy to generate the pattern.
-        logging.warning(f"Generating pattern for: {label}")
-        root, obj = get_verb_obj_from_label(label, nlp)
-        if root is None or obj is None:
-            return [{"LOWER": label.lower()}]
-
-        return [
-            {
-                "LEMMA": root.lemma_,
-                "POS": "VERB",
-            },
-            {
-                "LEMMA": obj.lemma_,
-                "POS": "NOUN",
-                # "DEP": "dobj",
-            },
-        ]
-
     def f_compound(label):
         default = [{"LOWER": label.lower()}]
 
