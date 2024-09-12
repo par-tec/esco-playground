@@ -56,6 +56,7 @@ Use the `EscoCV` and the `Ner` classes to extract skills from text:
 from esco.cv import EscoCV
 from esco import LocalDB
 from esco.ner import Ner
+import nltk
 
 # Initialize the vector index (slow) on disk.
 # This can be reused later.
