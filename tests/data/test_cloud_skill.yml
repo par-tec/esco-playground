@@ -1,0 +1,162 @@
+tests:
+  - text: |
+      As a Cloud Solutions Architect, I specialize in cloud migration planning for organizations transitioning to cloud environments. My expertise includes design cloud architecture and develop cloud applications to ensure seamless integration and optimal performance in cloud platforms.
+    skills:
+      esco:dfff95c6-9758-4c04-a228-7eaa88dec6cd:
+        count: 1
+        label: design for organisational complexity
+        uri: http://data.europa.eu/esco/skill/dfff95c6-9758-4c04-a228-7eaa88dec6cd
+      esco:6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
+      esco:11430d93-c835-48ed-8e70-285fa69c9ae6:
+        count: 1
+        label: design cloud architecture
+        uri: http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6
+
+  - text: |
+      As a Cloud Solutions Architect with extensive experience in designing cloud architectures and automating cloud tasks, I specialize in deploying scalable cloud resources that align with organizational goals. I have a proven track record of collaborating closely with engineering teams to develop innovative cloud services, ensuring seamless integration and efficient cloud migration. My expertise also extends to designing complex cloud networks and refactoring existing infrastructures to optimize performance and cost-efficiency.
+    skills:
+      esco:6195c5f7-a4fb-425d-a3dd-c4467c4471a3:
+        count: 1
+        label: deploy cloud resource
+        uri: http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3
+      esco:11430d93-c835-48ed-8e70-285fa69c9ae6:
+        count: 1
+        label: design cloud architecture
+        uri: http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6
+      esco:6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
+      esco:4da4587a-fd0b-4ca2-886c-c42a1562d432:
+        count: 1
+        label: create cloud network
+        uri: http://data.europa.eu/esco/skill/4da4587a-fd0b-4ca2-886c-c42a1562d432
+  - text: |
+      A Professional Cloud Developer builds scalable and highly available applications using Google-recommended tools and best practices. This individual has experience with cloud-native applications, developer tools, managed services, and next-generation databases. A Professional Cloud Developer also has proficiency with at least one general-purpose programming language and instruments their code to produce metrics, logs, and traces.
+
+      Design scalable, available, and reliable cloud-native applications
+      Build and test applications
+      Deploy applications
+      Integrate applications with Google Cloud services
+    skills:
+      esco:6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
+  - text: |
+      Cloud engineer with over five years of experience in designing and implementing cloud systems looking to further my career. Effective team player with a desire to join a growing company using my programming, software and communication skills.
+      Manage full application stacks with Amazon cloud-based computing environments
+      Analyze metrics to identify bottlenecks and improve performance
+      Work alongside a team of engineers to develop cloud data solutions
+      Oversee the continuous integration of our server technologies
+      Work closely with business executives to develop cloud solutions that would lead to better client satisfaction
+      Assisted the Technology Director with large-scale projects, such as the overhaul of our cybersecurity systems
+      Trained new interns and part-time employees on the best practices and systems within the organization
+      Participated in the planning and implementation of the organization's AWS infrastructure
+    skills:
+      esco:dfff95c6-9758-4c04-a228-7eaa88dec6cd:
+        count: 1
+        label: design for organisational complexity
+        uri: http://data.europa.eu/esco/skill/dfff95c6-9758-4c04-a228-7eaa88dec6cd
+  - text: |
+      As an accomplished Cloud Engineer, I bring extensive experience in developing cloud services and designing robust cloud networks that drive business innovation. I specialize in deploying and managing scalable cloud resources while ensuring seamless integration across complex, multi-cloud environments. My expertise includes automating cloud tasks to streamline operations, collaborating closely with engineering teams to implement cloud solutions, and planning strategic migrations to the cloud. I am committed to optimizing performance and enhancing security in every project, delivering solutions that align with organizational goals.
+    skills:
+      esco:6195c5f7-a4fb-425d-a3dd-c4467c4471a3:
+        count: 1
+        label: deploy cloud resource
+        uri: http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3
+      esco:dfff95c6-9758-4c04-a228-7eaa88dec6cd:
+        count: 1
+        label: design for organisational complexity
+        uri: http://data.europa.eu/esco/skill/dfff95c6-9758-4c04-a228-7eaa88dec6cd
+      esco:6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
+      esco:4da4587a-fd0b-4ca2-886c-c42a1562d432:
+        count: 1
+        label: create cloud network
+        uri: http://data.europa.eu/esco/skill/4da4587a-fd0b-4ca2-886c-c42a1562d432
+  - text: |
+      As a strategic Cloud Solutions Consultant, I excel in designing cloud architectures that address complex organizational needs and drive digital transformation. My expertise lies in planning and executing cloud migrations, ensuring a smooth transition with minimal disruption. I collaborate with cross-functional teams to design and implement scalable cloud networks and automate cloud tasks, optimizing operational efficiency. With a deep understanding of cloud services, I guide clients through refactoring initiatives to enhance performance, security, and cost-effectiveness in cloud environments.
+    skills:
+      esco:dfff95c6-9758-4c04-a228-7eaa88dec6cd:
+        count: 1
+        label: design for organisational complexity
+        uri: http://data.europa.eu/esco/skill/dfff95c6-9758-4c04-a228-7eaa88dec6cd
+      esco:11430d93-c835-48ed-8e70-285fa69c9ae6:
+        count: 1
+        label: design cloud architecture
+        uri: http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6
+      esco:4da4587a-fd0b-4ca2-886c-c42a1562d432:
+        count: 1
+        label: create cloud network
+        uri: http://data.europa.eu/esco/skill/4da4587a-fd0b-4ca2-886c-c42a1562d432
+      esco:6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
+  - text: |
+      As an experienced Cloud Infrastructure Specialist, I focus on designing and implementing scalable cloud architectures that meet organizational needs. My expertise includes deploying cloud resources, coordinating engineering teams to ensure seamless integration, and designing cloud networks to optimize performance and security. I excel in automating cloud tasks to enhance operational efficiency and developing cloud services that support business growth. With a strategic approach to managing complex cloud environments, I ensure that infrastructure solutions are both resilient and cost-effective.
+    skills:
+      esco:11430d93-c835-48ed-8e70-285fa69c9ae6:
+        count: 1
+        label: design cloud architecture
+        uri: http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6
+      esco:4da4587a-fd0b-4ca2-886c-c42a1562d432:
+        count: 1
+        label: create cloud network
+        uri: http://data.europa.eu/esco/skill/4da4587a-fd0b-4ca2-886c-c42a1562d432
+      esco:6195c5f7-a4fb-425d-a3dd-c4467c4471a3:
+        count: 1
+        label: deploy cloud resource
+        uri: http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3
+      esco:6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
+      esco:dfff95c6-9758-4c04-a228-7eaa88dec6cd:
+        count: 1
+        label: design for organisational complexity
+        uri: http://data.europa.eu/esco/skill/dfff95c6-9758-4c04-a228-7eaa88dec6cd
+  - text: |
+      As a dedicated Cloud Migration Specialist, I bring expertise in planning and executing seamless transitions to cloud environments. My skill set includes designing cloud architectures that support business objectives, refactoring existing applications for cloud compatibility, and automating cloud tasks to streamline operations. I work closely with engineering teams to ensure that cloud migrations are efficient and meet organizational requirements. My experience in deploying cloud resources and developing cloud services ensures that every migration project is optimized for performance, security, and cost-effectiveness.
+    skills:
+      esco:dfff95c6-9758-4c04-a228-7eaa88dec6cd:
+        count: 1
+        label: design for organisational complexity
+        uri: http://data.europa.eu/esco/skill/dfff95c6-9758-4c04-a228-7eaa88dec6cd
+      esco:11430d93-c835-48ed-8e70-285fa69c9ae6:
+        count: 1
+        label: design cloud architecture
+        uri: http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6
+      esco:6195c5f7-a4fb-425d-a3dd-c4467c4471a3:
+        count: 1
+        label: deploy cloud resource
+        uri: http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3
+      esco:6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
+  - text: |
+      As a skilled Cloud DevOps Engineer with deep expertise in AWS, I specialize in automating cloud tasks and deploying scalable cloud resources to enhance operational efficiency. I excel in designing cloud architectures that leverage AWS services to meet complex business needs. My experience includes coordinating with engineering teams to implement continuous integration and continuous deployment (CI/CD) pipelines, ensuring smooth and secure cloud operations. I also focus on optimizing cloud environments through refactoring and developing cloud services that align with organizational goals, ensuring high availability and resilience.
+    skills:
+      esco:dfff95c6-9758-4c04-a228-7eaa88dec6cd:
+        count: 1
+        label: design for organisational complexity
+        uri: http://data.europa.eu/esco/skill/dfff95c6-9758-4c04-a228-7eaa88dec6cd
+      esco:11430d93-c835-48ed-8e70-285fa69c9ae6:
+        count: 1
+        label: design cloud architecture
+        uri: http://data.europa.eu/esco/skill/11430d93-c835-48ed-8e70-285fa69c9ae6
+      esco:6195c5f7-a4fb-425d-a3dd-c4467c4471a3:
+        count: 1
+        label: deploy cloud resource
+        uri: http://data.europa.eu/esco/skill/6195c5f7-a4fb-425d-a3dd-c4467c4471a3
+      esco:6b643893-0a1f-4f6c-83a1-e7eef75849b9:
+        count: 1
+        label: develop with cloud services
+        uri: http://data.europa.eu/esco/skill/6b643893-0a1f-4f6c-83a1-e7eef75849b9
