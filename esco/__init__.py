@@ -1,8 +1,17 @@
+"""
+ESCO skills and occupations database management and search functionality.
+
+This module provides tools for loading, querying, and searching ESCO (European Skills,
+Competences, Qualifications and Occupations) data, including support for vector-based
+neural search capabilities.
+"""
+
 import logging
 from pathlib import Path
 from typing import List
 
 import pandas as pd
+from esco.vector import VectorDB
 
 log = logging.getLogger(__name__)
 
@@ -14,6 +23,7 @@ NS_MAP = {
 
 
 def to_curie(uri: str):
+    """Convert a full URI to a CURIE (Compact URI) format."""
     for k, v in NS_MAP.items():
         if uri.startswith(v):
             return uri.replace(v, k)
@@ -21,6 +31,7 @@ def to_curie(uri: str):
 
 
 def from_curie(curie: str):
+    """Convert a CURIE (Compact URI) to a full URI format."""
     if curie.startswith(("http://", "https://")):
         return curie
     for k, v in NS_MAP.items():
@@ -74,8 +85,6 @@ class LocalDB:
 
         if vector_idx_config:
             try:
-                from esco.vector import VectorDB
-
                 self.vector_idx = VectorDB(
                     skills=self.skills,
                     force_recreate=False,
@@ -83,7 +92,8 @@ class LocalDB:
                 )
             except ImportError:
                 log.warning(
-                    "Could not load Qdrant and langchain database. Maybe you need to `pip install .[langchain]`?"
+                    "Could not load Qdrant and langchain database. "
+                    "Maybe you need to `pip install .[langchain]`?"
                 )
                 self.vector_idx = None
 
@@ -97,13 +107,14 @@ class LocalDB:
         skills_count = self.skills.shape[0]
         if vector_idx_count != skills_count:
             raise ValueError(
-                f"Skills and vector index have different number of entries: {skills_count} vs {vector_idx_count}"
+                f"Skills and vector index have different "
+                f"number of entries: {skills_count} vs {vector_idx_count}"
             )
 
         return True
 
     def create_vector_idx(self, vector_idx_config: dict = None):
-        from esco.vector import VectorDB
+        """Create or recreate the vector index for skills search."""
 
         if vector_idx_config:
             self.vector_idx_config = vector_idx_config
@@ -118,13 +129,16 @@ class LocalDB:
 
     @staticmethod
     def load_skills():
+        """Load the ESCO skills data from the predefined JSON file."""
         return load_table("skills")
 
     @staticmethod
     def load_occupations():
+        """Load the ESCO occupations data from the predefined JSON file."""
         return load_table("occupations")
 
     def get_label(self, uri_or_curie: str):
+        """Retrieve the label for a given ESCO skill URI or CURIE."""
         uri = from_curie(uri_or_curie)
         try:
             return self.skills[self.skills.index == uri]["label"].iloc[0]
@@ -132,6 +146,11 @@ class LocalDB:
             return IndexError(f"URI not found in ESCO {uri_or_curie}")
 
     def get(self, uri_or_curie: str):
+        """
+        Retrieve the full skill data for a given ESCO skill URI or CURIE.
+
+        Returns a dictionary with skill details or None if not found.
+        """
         uri = from_curie(uri_or_curie)
         try:
             return self.skills[self.skills.index == uri].iloc[0].to_dict()
@@ -162,5 +181,6 @@ class LocalDB:
         return self.vector_idx.search(text, **params)
 
     def close(self):
+        """Close the vector index if it exists."""
         if self.vector_idx:
             self.vector_idx.close()
