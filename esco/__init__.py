@@ -11,10 +11,12 @@ from pathlib import Path
 from typing import List
 
 import pandas as pd
-from esco.vector import VectorDB
 
 log = logging.getLogger(__name__)
-
+try:
+    from esco.vector import VectorDB
+except ImportError:
+    log.warning("You cannot access VectorDB functionalities: install qdrant...")
 
 NS_MAP = {
     "esco:": "http://data.europa.eu/esco/skill/",
