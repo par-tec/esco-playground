@@ -1,3 +1,15 @@
+"""
+ESCO Matcher and NER Model Generator
+
+    This script generates a matcher for ESCO skills and a Named Entity Recognition (NER) model.
+    It retrieves skills and occupations from a SPARQL endpoint, creates text embeddings,
+    and builds patterns for matching using spaCy. The generated models and patterns are saved
+    for later use.
+
+    Usage:
+        Run the script with command-line options to generate the matcher, embeddings, and NER model.
+"""
+
 import json
 import logging
 from pathlib import Path
@@ -20,7 +32,8 @@ def make_pattern(id_: str, kn: dict):
     - altLabel: a list of alternative labels
     - the skillType: e.g. knowledge, skill, ability
 
-    The logic uses some euristic to decide whether to use the preferred label or the alternative labels.
+    The logic uses some euristic to decide whether to use
+    the preferred label or the alternative labels.
     """
     label = kn["label"]
     pattern = [{"LOWER": label.lower()}] if len(label) > 3 else [{"TEXT": label}]
@@ -40,7 +53,9 @@ def make_pattern(id_: str, kn: dict):
 
 
 def esco_matcher(skills):
-    # Create the patterns for the matcher
+    """
+    Create the patterns for the matcher
+    """
     return dict(
         make_pattern(id_, kni) for id_, kni in skills.to_dict(orient="index").items()
     )
@@ -51,7 +66,7 @@ def esco_matcher(skills):
 @click.option("--embeddings", default=True, help="Generate the text embeddings")
 @click.option("--ner", default=True, help="Generate the NER model")
 @click.option("--sparql", default="http://virtuoso:8890/sparql", help="Sparql URL")
-def main(esco, embeddings, ner, sparql):
+def main(esco, embeddings, ner, sparql):  # pylint: disable=too-many-locals
     """Generate the esco matching model."""
     outdir = Path("generated")
     model_dir = outdir / "en_core_web_trf_esco_ner"
