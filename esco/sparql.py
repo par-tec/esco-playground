@@ -1,3 +1,10 @@
+"""
+ESCO SPARQL Client Module
+
+Provides functionality to query ESCO data via SPARQL, including skills and occupations retrieval.
+Main component is the SparqlClient class for executing SPARQL queries and processing results.
+"""
+
 import io
 import logging
 
@@ -13,6 +20,13 @@ log = logging.getLogger(__name__)
 # Sparql
 #
 class SparqlClient:
+    """
+    A client for querying ESCO data using SPARQL.
+
+    This class provides methods to interact with a SPARQL endpoint,
+    execute queries, and retrieve ESCO skills and occupations data.
+    """
+
     def __init__(self, url="http://localhost:18890/sparql"):
         self.url = url
         self.client = SPARQLWrapper(url)
@@ -43,6 +57,7 @@ class SparqlClient:
         }
 
     def query(self, query):
+        """Execute a SPARQL query and return results in CSV format."""
         query = (
             "\n".join([f"PREFIX {k}: <{v}>" for k, v in self.prefixes.items()]) + query
         )
@@ -124,6 +139,11 @@ class SparqlClient:
         return df.groupby(df.s).agg(lambda x: x.iloc[0]).to_dict(orient="index")
 
     def load_isco(self, categories=None) -> pd.DataFrame:
+        """
+        Load ISCO occupations and related skills from ESCO.
+
+        Defaults to ICT professionals and technicians if no categories provided.
+        """
         categories = categories or [  # Defaults to ICT professionals and technicians.
             "http://data.europa.eu/esco/isco/C25",
             "http://data.europa.eu/esco/isco/C35",
@@ -234,14 +254,19 @@ class SparqlClient:
         df = pd.read_csv(io.StringIO(res.decode()))
         return df
 
-    def load_esco(self, categories=None) -> pd.DataFrame:
+    def load_esco(self) -> pd.DataFrame:
+        """
+        Load and combine ESCO skills from both ISCO and ESCO sources.
+
+        Raises ValueError if no skills are found from either source.
+        """
         skill1 = self._load_skills_from_isco()
-        log.info(f"Loaded {len(skill1)} skills from ISCO.")
+        log.info("Loaded %s skills from ISCO.", len(skill1))
         if skill1.empty:
             raise ValueError("No skills found from ISCO.")
 
         skill2 = self._load_skills_from_esco()
-        log.info(f"Loaded {len(skill2)} skills from ESCO.")
+        log.info("Loaded %s skills from ESCO.", len(skill2))
         if skill2.empty:
             raise ValueError("No skills found from ESCO.")
 
@@ -255,9 +280,11 @@ class SparqlClient:
         return df
 
     def load_skills(self):
+        """Load ESCO skills and aggregate them using utility function."""
         df = self.load_esco()
-        return esco.util._aggregate_skills(df)
+        return esco.util._aggregate_skills(df)  # pylint: disable=protected-access
 
     def load_occupations(self):
+        """Load ESCO occupations and aggregate them using utility function."""
         df = self.load_isco()
-        return esco.util._aggregate_occupations(df)
+        return esco.util._aggregate_occupations(df)  # pylint: disable=protected-access

@@ -1,7 +1,15 @@
+"""
+Aggregates skills and occupations data by `uri`,
+generating text fields and label sets for semantic search.
+"""
+
 import pandas as pd
 
 
 def is_valid(value):
+    """
+    Checks if the input value is valid.
+    """
     if pd.isna(value):
         return False
     return bool(value)

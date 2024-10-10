@@ -1,3 +1,8 @@
+"""
+Manages a vector database for ESCO embeddings using Qdrant,
+providing functionalities for storage, retrieval, and search.
+"""
+
 from pathlib import Path
 
 import pandas as pd
@@ -13,8 +18,13 @@ MODEL_PARAMETERS = {
 
 
 class ReadOnlyQdrant(Qdrant):
+    """
+    ReadOnlyQdrant class extends the Qdrant class to provide read-only
+    functionality, disabling the addition of new texts to the database.
+    """
+
     @staticmethod
-    def add_texts(*args, **kwargs):
+    def add_texts(*args, **kwargs):  # pylint: disable=unused-argument
         return
 
 
@@ -68,6 +78,10 @@ class VectorDB:
             self._recreate(skills)
 
     def _recreate(self, skills: pd.DataFrame):
+        """
+        Recreates the vector database by upserting skill embeddings from the
+        provided DataFrame, raising an error if the operation fails.
+        """
         points = Batch(
             ids=[x.split("/")[-1] for x in skills.index.values],
             payloads=[
@@ -85,12 +99,21 @@ class VectorDB:
             raise ValueError(f"Could not add points to Qdrant: {ret}")
         return ret
 
-    def scroll(self, limit=10000):
+    def scroll(self, limit=10000):  # pylint: disable=unused-argument
+        """
+        Retrieves a specified number of documents from the vector database,
+        defaulting to 10,000, using the Qdrant client.
+        """
         return self.qdrant.client.scroll(
             collection_name=self.config["collection_name"], limit=10000
         )
 
     def search(self, text, **params):
+        """
+        Performs a similarity search in the vector database using the provided text
+        and additional parameters, returning the matching documents with their
+        metadata and similarity scores.
+        """
         params = {**self.model_params, **params}
         return [
             {
@@ -102,4 +125,7 @@ class VectorDB:
         ]
 
     def close(self):
+        """
+        function to close client
+        """
         self.qdrant.client.close()
