@@ -1,3 +1,12 @@
+"""
+Module for Testing Vector and Local Database Operations with ESCO Skills Data.
+
+This module defines tests for creating, loading, and managing vector indices with `VectorDB` and
+`LocalDB` using a subset of ESCO skills data. It includes context managers for handling temporary
+database instances and pytest functions to validate indexing, search functionality, and persistence.
+
+"""
+
 from contextlib import contextmanager
 from pathlib import Path
 from uuid import uuid4
@@ -19,6 +28,9 @@ _vector_idx_configs = [
 
 
 def LocalDBShort(**kwargs):
+    """
+    Creates a shortened LocalDB instance containing only the first 10 skills.
+    """
     db = LocalDB(**kwargs)
     db.skills = db.skills[:10]
     return db
@@ -26,6 +38,10 @@ def LocalDBShort(**kwargs):
 
 @contextmanager
 def TmpVectorIdx(**kwargs):
+    """
+    Context manager for creating and automatically closing a temporary VectorDB instance.
+    Initializes a VectorDB for use within the context and ensures it is closed upon exit.
+    """
     idx = VectorDB(**kwargs)
     yield idx
     idx.close()
@@ -33,6 +49,12 @@ def TmpVectorIdx(**kwargs):
 
 @contextmanager
 def TmpLocalDB(**kwargs):
+    """
+    Context manager for a temporary LocalDB instance with automatic cleanup.
+
+    Creates a LocalDB instance (limited to the first 10 skills) and ensures that the associated
+    vector index collection is deleted and the database is closed when exiting the context.
+    """
     db = LocalDBShort(**kwargs)
     yield db
     db.vector_idx.qdrant.client.delete_collection(
@@ -43,6 +65,13 @@ def TmpLocalDB(**kwargs):
 
 @pytest.mark.parametrize("vector_idx_config", _vector_idx_configs)
 def test_can_create_idx_with_path(tmpdir, request, vector_idx_config):
+    """
+    Test to ensure a VectorDB index can be created using a specified path.
+
+    If no valid path is provided in the configuration, a temporary path is assigned.
+    Verifies that the index is created successfully and returns non-empty search results,
+    then closes the index.
+    """
     if vector_idx_config.get("path") == -1:
         vector_idx_config |= {"path": tmpdir / f"deleteme-{uuid4()}"}
 
@@ -53,6 +82,13 @@ def test_can_create_idx_with_path(tmpdir, request, vector_idx_config):
 
 
 def test_can_load_idx_from_disk(tmpdir, request):
+    """
+    Tests loading a VectorDB index from disk to verify persistence.
+
+    Creates a VectorDB instance with a specified path, performs a search to confirm
+    successful indexing, and closes it. Then reopens the index from disk and verifies
+    that the same search returns non-empty results, confirming data persistence.
+    """
     # When I create a vector database
     idx = VectorDB(
         skills=skills_10,
@@ -83,6 +119,13 @@ def test_can_load_idx_from_disk(tmpdir, request):
     _vector_idx_configs,
 )
 def test_localdb_can_load_existing_idx(tmpdir, request, vector_idx_config):
+    """
+    Tests loading an existing VectorDB index in a LocalDB instance.
+
+    Creates a VectorDB with the given configuration, ensuring it is set up properly,
+    and closes it. Then, it loads the index within a temporary LocalDB context
+    and verifies that a search returns non-empty results, confirming successful loading.
+    """
     if vector_idx_config.get("path") == -1:
         vector_idx_config |= {"path": tmpdir / f"deleteme-{uuid4()}"}
 
@@ -105,6 +148,13 @@ def test_localdb_can_load_existing_idx(tmpdir, request, vector_idx_config):
     _vector_idx_configs,
 )
 def test_localdb_can_create_idx(tmpdir, request, vector_idx_config):
+    """
+    Tests the creation of a VectorDB index within a LocalDB instance.
+
+    If the provided vector index configuration lacks a valid path, a temporary path is assigned.
+    A new vector index is created in the LocalDB, and a search is performed to verify
+    successful indexing by checking for non-empty results.
+    """
     if vector_idx_config.get("path") == -1:
         vector_idx_config |= {"path": tmpdir / f"deleteme-{uuid4()}"}
 
@@ -121,6 +171,14 @@ def test_localdb_can_create_idx(tmpdir, request, vector_idx_config):
     _vector_idx_configs,
 )
 def test_localdb_can_recreate_idx(tmpdir, request, vector_idx_config):
+    """
+    Tests the recreation of a VectorDB index in a LocalDB instance.
+
+    If no valid path is provided in the vector index configuration, a temporary path is assigned.
+    An existing vector index is created, and after modifying the skills in the LocalDB,
+    the vector index is recreated. The test verifies that the removed entry is no longer
+    present in the index and that a search for it returns no results.
+    """
     if vector_idx_config.get("path") == -1:
         vector_idx_config |= {"path": tmpdir / f"deleteme-{uuid4()}"}
 
