@@ -1,3 +1,16 @@
+"""
+Extracts and analyzes skills from CV text using ESCO classifications.
+
+Features:
+- Entity counting and skill extraction via NER and neural search
+- Integration with ESCO database
+- Sentence-level skill analysis
+
+Note: Avoid personal data in CV text to prevent NER confusion.
+
+Usage: Import EscoCV class to process CV text and extract skills.
+"""
+
 import logging
 
 import esco
@@ -30,7 +43,8 @@ class EscoCV:
     A CV skill extractor.
 
     The text should not contain personal data,
-    since this may confuse the NER model (e.g., the text "address: Java street" may be recognized as a skill).
+    since this may confuse the NER model
+    (e.g., the text "address: Java street" may be recognized as a skill).
     """
 
     def __init__(self, ner, text=None, doc=None) -> None:
@@ -48,6 +62,17 @@ class EscoCV:
         self.sentences = []
 
     def entities(self):
+        """
+        @return a dict containing entities and their count.
+        The dict has two keys:
+        - 'entities': a list of dicts, each representing an entity with:
+            - 'start': start character index
+            - 'end': end character index
+            - 'label': entity label
+            - 'text': entity text
+            - 'id': entity ID
+        - 'count': total number of entities found
+        """
         return {
             "entities": [
                 {
@@ -93,7 +118,7 @@ class EscoCV:
                 for skill in skills:
                     ret[skill["uri"]] = {"label": skill["label"], "count": e["count"]}
             else:
-                log.debug(f"Ignoring other labels: {e['label']}")
+                log.debug("Ignoring other labels: %s", e["label"])
         self._ner_skills = ret
         return ret
 
@@ -137,6 +162,18 @@ class EscoCV:
         return self.sentences
 
     def skills(self, force=False):
+        """
+        @param force: if True, force recalculation even if results are cached.
+        @return a dict of skills, where:
+            - Key: skill URI
+            - Value: dict containing:
+                - 'label': skill label
+                - 'count': number of occurrences
+                - 'score': relevance score (if available)
+        Note:
+            - Skills with labels shorter than 5 characters are skipped.
+            - For duplicate skills, count is incremented and score is maximized.
+        """
         if self._all_skills and not force:
             return self._all_skills
         ner_skills = {} | self.ner_skills(force=force)
@@ -146,7 +183,7 @@ class EscoCV:
 
                 if len(skill["label"]) < 5:
                     log.debug(
-                        f"Skipping {skill['label']}. Too short for neural search."
+                        "Skipping %s. Too short for neural search.", skill["label"]
                     )
                     continue
                 if uri not in ner_skills:
