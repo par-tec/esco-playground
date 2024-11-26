@@ -1,3 +1,4 @@
+---
 #
 #
 #
@@ -30,7 +31,7 @@ services:
   cors:
     image: nginx
     depends_on:
-    - virtuoso
+      - virtuoso
     volumes:
       - ./sparql/nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
@@ -40,12 +41,12 @@ services:
     # user: root
     image: docker.io/openlink/virtuoso-opensource-7:7.2.12-alpine
     ports:
-    - "18890:8890/tcp"
+      - "18890:8890/tcp"
     environment:
       - VIRTUOSO_INI_FILE=/virtuoso.ini
       - DBA_PASSWORD=dba
     volumes:
-    - .:/code
-    - ./data:/database
-    - ./vocabularies:/initdb.d/
-    - ./sparql/virtuoso.ini:/virtuoso.ini
+      - .:/code
+      - ./data:/database
+      - ./vocabularies:/initdb.d/
+      - ./sparql/virtuoso.ini:/virtuoso.ini
