@@ -1,3 +1,10 @@
+"""
+Module for Testing ESCO Named Entity Recognition (NER) for Skills Extraction.
+
+This module contains tests that validate the functionality of the NER model
+in recognizing skills from text, specifically focusing on parsing CVs.
+"""
+
 import logging
 from pathlib import Path
 
@@ -20,6 +27,13 @@ nltk.download("punkt")
 
 @pytest.fixture(scope="module")
 def esco_db(tmpdir):
+    """
+    Fixture to create a LocalDB instance with a vector index for testing.
+
+    This fixture initializes a LocalDB instance, creates a vector index at a specified
+    temporary path, and yields the database instance for use in tests. The database is
+    automatically closed after the tests are completed.
+    """
     db = LocalDB()
     db.create_vector_idx(
         {
@@ -39,6 +53,13 @@ def esco_db(tmpdir):
     ],
 )
 def esco_ner(esco_db, request):
+    """
+    Fixture to initialize the NER model with the LocalDB instance.
+
+    This fixture loads the NER model using the provided LocalDB and the specified model
+    path from the request parameters. It logs the loading process and yields the NER model
+    for use in tests.
+    """
     log.info("Loading model %s", request.param)
     nlp_e = Ner(
         db=esco_db,
