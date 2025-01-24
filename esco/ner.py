@@ -26,7 +26,7 @@ class Ner:
     def __init__(
         self,
         db,
-        model_name_or_path: str = "en_core_web_trf",
+        model_name_or_path: str = "en_core_web_trf_esco_ner",
         labels: tuple = ("ESCO", "PRODUCT", "LANGUAGE", "LAW"),
         tokenizer=None,
     ):
