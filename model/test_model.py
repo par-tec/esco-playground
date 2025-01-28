@@ -1,3 +1,9 @@
+"""
+Unit tests for integrating the ESCO component into the spaCy NLP pipeline.
+
+This module tests the addition of the ESCO entity recognizer and validates the matching patterns.
+"""
+
 from pathlib import Path
 
 import pytest
@@ -11,6 +17,12 @@ import model
 
 @pytest.mark.skip(reason="Superseeded by entity_recognizer")
 def test_add_esco_spacy_pipeline():
+    """
+    Test the integration of the ESCO component into the spaCy NLP pipeline.
+
+    This function defines and adds a custom component to identify ESCO entities
+    using a matcher, positioned after the NER in the pipeline.
+    """
     nlp = spacy.load("en_core_web_trf")
     matcher = spacy.matcher.Matcher(nlp.vocab)
 
@@ -32,6 +44,7 @@ def test_add_esco_spacy_pipeline():
 
 
 def test_esco_matcher():
+    """TOO DO"""
     return
     m = model.esco_matcher()
     validate_patterns = False
@@ -46,6 +59,13 @@ def test_esco_matcher():
 
 
 def test_model():
+    """
+    Test the ESCO NER model with a sample text.
+
+    This function loads a text file and processes it through the ESCO NER model.
+    It checks that the model produces a document object. Currently, it raises
+    a NotImplementedError to indicate further implementation is needed.
+    """
     DATADIR = Path(__file__).parent.parent / "tests" / "data"
     text = (DATADIR / "rpolli.txt").read_text()
     nlp = spacy.load("../generated/en_core_web_trf_esco_ner")

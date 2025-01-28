@@ -1,3 +1,10 @@
+"""
+ESCO Skill Recognition Module
+
+Provides NLP-based recognition of ESCO skills in text using spaCy and an ESCO database.
+Main component is the Ner class, a spaCy-aware ESCO skill recognizer.
+"""
+
 import logging
 from typing import Collection
 
@@ -12,7 +19,8 @@ class Ner:
     """
     This is a spacy-aware esco skill recognizer.
 
-    It uses a spacy model to recognize entities in a text, and then it uses the esco database to infer skills from the entities.
+    It uses a spacy model to recognize entities in a text,
+    and then it uses the esco database to infer skills from the entities.
     """
 
     def __init__(

@@ -1,3 +1,4 @@
+---
 openapi: "3.0.0"
 info:
   version: "0.0.1"
@@ -55,7 +56,8 @@ components:
         though retaining classifiers such as the `status`
         and the `skillType`.
 
-        RDF bindings are based on this spec https://www.ietf.org/archive/id/draft-polli-restapi-ld-keywords-03.html.
+        RDF bindings are based on this spec
+        https://www.ietf.org/archive/id/draft-polli-restapi-ld-keywords-03.html.
       x-jsonld-type: "http://data.europa.eu/esco/model#Skill"
       x-jsonld-context:
         esco: "http://data.europa.eu/esco/skill/"

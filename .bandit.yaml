@@ -16,5 +16,5 @@ exclude_dirs:
 
 # Skip assert inside test files.
 assert_used:
-  skips:
+ skips:
   - "*/test_*.py"
