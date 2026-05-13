@@ -12,7 +12,7 @@ jupyter
 # spacy[cuda113]
 
 # Further requirements file for running models
-langchain==0.1.0
+langchain==0.3.30
 langchain-community==0.0.12
 qdrant-client==1.10.1
 nltk==3.9.4
